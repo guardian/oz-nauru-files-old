@@ -1,10 +1,39 @@
 <div class="interactive-container">
-    <h2 class="interactive-es6-headline">Secret files</h2>
-    <div id='gridContainer'>
+    <div class="header">
+    <div class="nauruHeader">
+        <span class="headerSmall">the</span>
+        <div class="headerBig">Nauru files</div>
+        <div class="subHeading">Three years of Asylum seekers' life in detention detailed in a leaked database</div>
+        <div class="standfirst">Each of these squares is an incident reported by staff at the Nauru detention centre between 2013 and 2015. The incidents are categorised by severity, the type of incident, and whether a minor was involved. Click an incident to see expanded details</div>
+        <div class="byline"><a href="">Paul Farrell</a>, <a href="">Helen Davidson</a>, <a href="">Ri Liu</a> and <a href="">Nick Evershed</a></div>
+        <div class="btns-share"><button class="btn-tt" data-source="twitter"></button> <button class="btn-fb" data-source="facebook"></button></div>
+    </div>
+
+    </div>    
+    <div id="gridContainer">
 
     </div>    
 </div>
 <script id='template' type='text/ractive'>
+    <div class='controls'>
+        <h2>Filters</h2>
+        <select value='{{year}}'>
+            <option value="All">All</option>
+            <option value="2015">2015</option>
+            <option value="2014">2014</option>
+            <option value="2013">2013</option>
+        </select>
+
+        <select value='{{incidentRating}}'>
+            <option value="All">All</option>
+            <option value="Minor">Minor</option>
+            <option value="Major">Major</option>
+            <option value="Critical">Critical</option>
+            <option value="Not rated">Not rated</option>
+            <option value="Information">Information</option>
+        </select>
+
+    </div>
     {{#each nauruData}}
         <h2>{{key}}</h2>
         {{#each values}}

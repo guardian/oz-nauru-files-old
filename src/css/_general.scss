@@ -2,7 +2,7 @@ body,
 figure.interactive {
     margin: 0;
     padding: 0;
-    background-color: #dcdcdc;
+    background-color: #212121;
 }
 
 // Link styles don't exist on the app
@@ -22,7 +22,7 @@ a {
 .interactive-container {
     margin: 0 auto;
     box-sizing: border-box;
-    background-color: white;
+    background-color: #000;
 
     padding: 10px;
     @include mq(mobileLandscape) {
