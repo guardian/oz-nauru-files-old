@@ -1,0 +1,37 @@
+<div class='controls'>
+    <h2>Filters</h2>
+    <select value='{{year}}'>
+        <option value="All">All</option>
+        <option value="2015">2015</option>
+        <option value="2014">2014</option>
+        <option value="2013">2013</option>
+    </select>
+
+    <select value='{{incidentRating}}'>
+        <option value="All">All</option>
+        <option value="Minor">Minor</option>
+        <option value="Major">Major</option>
+        <option value="Critical">Critical</option>
+        <option value="Not rated">Not rated</option>
+        <option value="Information">Information</option>
+    </select>
+
+</div>
+{{#each nauruData}}
+    <h2>{{key}}</h2>
+    {{#each values}}
+        <h3>{{key}}</h3>
+        <div class="gridItems">
+            {{#each values}}
+            <div class='gridItem {{riskRating}}' on-click='showDetail'>
+            </div>
+            {{/each}}
+        </div>
+        {{#quote}}
+            <div class="quote-box">
+                <div class="quote-date">{{date}}</div>
+                <div class="quote-text">{{{quote}}}</div>
+            </div>
+        {{/}}
+    {{/each}}        
+{{/each}}
