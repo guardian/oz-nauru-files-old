@@ -288,6 +288,30 @@
   font-style: normal;
   font-stretch: normal; }
 
+@font-face {
+    font-family: 'BLOKKNeue';
+    src: url('assets/fonts/BLOKKNeue-Regular.eot');
+    src: url('assets/fonts/BLOKKNeue-Regular.eot?#iefix') format('embedded-opentype'),
+         url('assets/fonts/BLOKKNeue-Regular.woff') format('woff'),
+         url('assets/fonts/BLOKKNeue-Regular.svg#BLOKKNeue-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'redacted';
+    src: url('assets/fonts/redacted-regular.eot');
+    src: url('assets/fonts/redacted-regular.eot?#iefix') format('embedded-opentype'),
+         url('assets/fonts/redacted-regular.woff2') format('woff2'),
+         url('assets/fonts/redacted-regular.woff') format('woff'),
+         url('assets/fonts/redacted-regular.ttf') format('truetype'),
+         url('assets/fonts/redacted-regular.svg#redactedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+
+}
+
 html, body {
   text-rendering: optimizeLegibility;
   -webkit-font-feature-settings: 'kern';

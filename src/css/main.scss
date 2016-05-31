@@ -3,14 +3,82 @@
 @import "mq";
 @import "general";
 @import "share";
+@import "tooltip";
+@import "modal";
 
 .interactive-container {
+
+  .gridItems {
+    width: 60%;
+    float: left;
+    margin-bottom: 20px;
+  }
+
+  #gridContainer {
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  }
+
+  .quote-box {
+    width: 39%;
+    margin-left: 1%;
+    float: left;
+    background-color: #333;
+    padding: 16px 20px;
+    box-sizing: border-box;
+
+    .quote-date {
+      font-size: 14px;
+      color: #bdbdbd;
+    }
+
+    .quote-text {
+      margin-top: 0.5em;
+      line-height: 1.5em;
+      font-size: 16px;
+
+/*      .redacted-1 {
+        color: #bdbdbd;
+      }
+      .redacted-2 {
+        color: #767676;
+      }*/
+    }
+  }
+
+  .redacted {
+    font-family: 'redacted';
+    font-size: 1.25em;
+    color: #b51800;
+    margin: auto 5px;
+  }
+
+  h2, h3 {
+    clear: both;
+  }
+
 	.gridItem {
-		width:50px;
-		height:50px;
+		width:30px;
+		height:30px;
 		display: inline-block;
-		margin-right:5px;
+		margin: 6px 12px 0 0;
 		background-color:grey;
+
+    &:hover {
+      outline: 2px solid #fff;
+    }
+    &.Minor {
+      background-color: #ffce4b;
+    }
+    &.Major {
+      background-color: #e6711b;
+    }
+    &.Critical {
+      background-color: #b51800;
+    }
 	}
 
 	.header {
