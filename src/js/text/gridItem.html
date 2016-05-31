@@ -23,7 +23,7 @@
         <h3>{{key}}</h3>
         <div class="gridItems">
             {{#each values}}
-            <div class='gridItem {{riskRating}}' on-click='showDetail'>
+            <div class='gridItem {{riskRating}}' on-tap='showDetail' on-mouseover='showTooltip'>
             </div>
             {{/each}}
         </div>

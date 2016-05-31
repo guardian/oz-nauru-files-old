@@ -73,11 +73,12 @@ export function init(el, context, config, mediator) {
 
     // ractive.DEBUG = false;
     var ractive = new Ractive({
+        events: { tap: ractiveTap },
         el: '#gridContainer',
         data:{nauruData:nauruYearMonth},
         year:year,
         incidentRating:incidentRating,
-        template: gridItem    
+        template: gridItem  
     })
 
     ractive.on('showDetail', (d) => {

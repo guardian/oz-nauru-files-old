@@ -14,12 +14,15 @@ const Modal = Ractive.extend({
     this.modal = this.find( '.modal' );
 
     // if the user taps on the background, close the modal
-    this.on( 'close', function ( event ) {
+    this.on( 'bg-close', function ( event ) {
       if ( !this.modal.contains( event.original.target ) ) {
         this.teardown();
       }
     });
 
+    this.on( 'close', function ( event ) {
+      this.teardown();
+    });
     // when the window resizes, keep the modal horizontally and vertically centred
     window.addEventListener( 'resize', resizeHandler = function () {
       self.center();
