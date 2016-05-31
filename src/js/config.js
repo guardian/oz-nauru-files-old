@@ -17,6 +17,8 @@ System.config({
     "guardian/iframe-messenger": "github:guardian/iframe-messenger@master",
     "json": "github:systemjs/plugin-json@0.1.0",
     "ractive": "github:ractivejs/ractive@0.7.3",
+    "ractive-events-tap": "npm:ractive-events-tap@0.3.0",
+    "ractive-transitions-fade": "npm:ractive-transitions-fade@0.3.1",
     "reqwest": "github:ded/reqwest@1.1.5",
     "text": "github:systemjs/plugin-text@0.0.2",
     "traceur": "github:jmcriffey/bower-traceur@0.0.91",
