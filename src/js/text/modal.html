@@ -1,0 +1,12 @@
+<div class='modal-background' on-tap='close' intro='fade' outro='fade'>
+  <div class='modal-outer'>
+    <div class='modal'>
+      {{#details}}
+        <h3>{{dateDisplay}}</h3>
+        <div>Type of Incident: {{category}}</div>
+        <div>Severity: {{riskRating}}</div> 
+        <p>{{details}}     
+      {{/details}}
+    </div>
+  </div>
+</div>
