@@ -7,6 +7,7 @@ import ractiveFade from 'ractive-transitions-fade'
 import ractiveTap from 'ractive-events-tap'
 import d3 from 'd3'
 import Modal from './modal'
+import Tooltip from './tooltip'
 import nauruData from './text/nauru.json!text'
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
@@ -78,7 +79,10 @@ export function init(el, context, config, mediator) {
         data:{nauruData:nauruYearMonth},
         year:year,
         incidentRating:incidentRating,
-        template: gridItem  
+        template: gridItem,
+        decorators: {
+            tooltip: Tooltip
+        }
     })
 
     ractive.on('showDetail', (d) => {
@@ -87,9 +91,8 @@ export function init(el, context, config, mediator) {
             events: { tap: ractiveTap },
             data: {details: d.context}
         });
-
-        console.log(modal)
     })
+
     function filterData() {
 
         filteredData = nauruJson;

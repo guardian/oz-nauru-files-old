@@ -7,14 +7,18 @@
 @import "modal";
 
 .interactive-container {
+  position: relative;
 
   .gridItems {
     width: 60%;
     float: left;
     margin-bottom: 20px;
+    position: relative;
   }
 
   #gridContainer {
+    position: relative;
+
     &:after {
       content: "";
       display: table;

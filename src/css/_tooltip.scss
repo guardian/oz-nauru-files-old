@@ -1,0 +1,76 @@
+.tooltip {
+    width: 300px;
+    position: absolute;
+    box-shadow: 0px 0px 10px 0px rgba(50, 50, 50, 0.30);
+    z-index: 99;
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    
+    @include mq(tablet) {
+        pointer-events: none;
+    }
+
+    h3 {
+        margin: 0;
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+    .severity {
+        margin-right: 6px;
+        span { padding: 4px; color: #333;}
+    .rating-Not {
+      background-color: transparent;
+      color: #fff;
+    }
+    .rating-Minor {
+      background-color: #ffce4b;
+    }
+    .rating-Major {
+      background-color: #e6711b;
+    }
+    .rating-Critical {
+      background-color: #b51800;
+      color: #fff;
+    }
+    .rating-Information {
+      background-color: #ddd;
+    }
+    }
+
+    .severity, .category {
+        display: inline-block;
+        margin-top: 10px;
+        font-size: 11px;
+        font-family: 'Guardian Agate Sans 1 Web';
+    }
+
+    .text {
+        margin-top: 1em;
+        font-size: 14px;
+        line-height: 1.25em;
+        color: #fff;
+    }
+
+    .more {
+        color: #bdbdbd;
+        font-style: italic;
+        font-size: 12px;
+        white-space: nowrap;
+    }
+}
+
+.tooltip h4 {
+    font-size: 12px;
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+}
+
+.tooltip p {
+    font-size: 12px;
+    margin: 0;
+    padding: 0;
+    color: #000;
+}
