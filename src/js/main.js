@@ -1,4 +1,5 @@
 import reqwest from 'reqwest'
+import iframeMessenger from 'guardian/iframe-messenger'
 import mainHTML from './text/main.html!text'
 import gridItem from './text/gridItem.html!text'
 import share from './lib/share'
@@ -8,7 +9,10 @@ import ractiveTap from 'ractive-events-tap'
 import d3 from 'd3'
 import Modal from './modal'
 import Tooltip from './tooltip'
-import nauruData from './text/nauru.json!text'
+import nauruData from './data/nauru.json!json'
+import data2013 from './data/data2013.json!json'
+import data2014 from './data/data2014.json!json'
+import data2015 from './data/data2015.json!json'
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
 
@@ -24,18 +28,32 @@ export function init(el, context, config, mediator) {
     var dateDisplay = d3.time.format("%d %B %Y");
     var getMonth = d3.time.format("%B");
     var getYear = d3.time.format("%Y");
-    var nauruJson = JSON.parse(nauruData);
+    var nauruJson = nauruData;
     var year = "All";
     var filteredData,filteredYearMonth;
     var incidentRating = "All";
     var sortYear = function (a, b) { d3.ascending(getYear.parse(a), getYear.parse(b)) };
     var sortMonth = function (a, b) { d3.ascending(getMonth.parse(a), getMonth.parse(b)) };
-    nauruJson.forEach( function(d) {
+
+    nauruJson.forEach( function(d,i) {
+        d.id = i
         d.date = dateFormat.parse(d.date);
         d.dateDisplay = dateDisplay(d.date)
         d.month = getMonth(d.date);
         d.year = getYear(d.date);
     });
+
+    var combineData = data2013.concat(data2014,data2015)
+
+    var combined = d3.nest()
+        .key((d) => d.category ? d.category.toLowerCase() : null)
+        .entries(combineData)
+
+    combined.sort((a,b) => d3.descending(a.values.length, b.values.length))
+
+    combined.forEach((d) => {
+        console.log(d.key, d.values.length)
+    })
 
     var quoteData = [
         { date: "21 January 2014", quote: '<span class="redacted redacted-1">[REDACTED1]</span> approached <span class="redacted redacted-2">[REDACTED2]</span> save the children and informed that a CSO had choked his son', ref: "SCA14.0042" },
@@ -52,6 +70,8 @@ export function init(el, context, config, mediator) {
         .key(function(d) { return d.year; })
         .key(function(d) { return d.month; })
         .entries(nauruJson);
+
+    var dataMapped = d3.map(nauruJson, (d) => d.id)
 
     //Sort by year then month    
 
@@ -85,13 +105,17 @@ export function init(el, context, config, mediator) {
         }
     })
 
-    ractive.on('showDetail', (d) => {
-        var modal = new Modal({
-            transitions: { fade: ractiveFade },
-            events: { tap: ractiveTap },
-            data: {details: d.context}
-        });
-    })
+    ractive.on('showDetail', (d) => showModal(d.context))
+
+    //Load modal from url param
+    var hash = getHash()
+
+    if(hash) {
+        console.log(hash)
+        console.log(dataMapped.get(hash))
+        showModal(dataMapped.get(hash))
+    }
+
 
     function filterData() {
 
@@ -143,6 +167,52 @@ export function init(el, context, config, mediator) {
             filterData();
         }
     });
+
+    function updateURL(index) {
+        var urlString = `#incident=${index}`
+        
+        if ( window.self !== window.top ) {
+            iframeMessenger.navigate(urlString);
+            // iframeMessenger.getLocation(function(parLocation) {
+            // linkURL = parLocation['href'];
+            //     tweetLinkURL = "https://twitter.com/intent/tweet?text=Here's+my+plan+for+tax+reform+in+Australia:+&url=" + parLocation['origin'] + parLocation['pathname'] + "%23" + urldata.join(",") + "&hashtags=ruleinruleout";
+            //     ractive.set('tweetLinkURL',tweetLinkURL);
+            //     ractive.set('linkURL',linkURL);
+            // });
+        }
+        else {
+            window.location.hash = urlString;
+            // linkURL = window.location.origin + window.location.pathname + "#" + urldata.join(",");
+            // tweetLinkURL = "https://twitter.com/intent/tweet?text=Here's+my+plan+for+tax+reform+in+Australia:+&url=" + window.location.origin + window.location.pathname + "%23" + urldata.join(",") + "&hashtags=ruleinruleout";
+            // ractive.set('tweetLinkURL',tweetLinkURL);
+            // ractive.set('linkURL',linkURL);            
+        }
+    }
+
+    function getHash() {
+        if (window.self !== window.top) 
+            { var hash = iframeMessenger.getLocation.hash }
+        else if (window.location.hash) {
+            var hash = window.location.hash.split('incident=')[1].split('&')[0]
+        }
+
+        if (hash) {
+            return hash
+        }
+        else {
+            return false
+        }
+
+    }
+
+    function showModal(data) {
+        var modal = new Modal({
+            transitions: { fade: ractiveFade },
+            events: { tap: ractiveTap },
+            data: {details: data}
+        });
+        updateURL(data.id)
+    }
 
     
 

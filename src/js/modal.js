@@ -1,5 +1,6 @@
 import Ractive from 'ractive'
 import template from './text/modal.html!text'
+import iframeMessenger from 'guardian/iframe-messenger'
 
 const Modal = Ractive.extend({
   el: '.interactive-container',
@@ -30,6 +31,11 @@ const Modal = Ractive.extend({
 
     // clean up after ourselves later
     this.on( 'teardown', function () {
+      if ( window.self !== window.top ) {
+          iframeMessenger.navigate('')
+      } else {
+          history.pushState("", document.title, window.location.pathname)
+      }
       window.removeEventListener( 'resize', resizeHandler );
     }, false );
 

@@ -8,7 +8,7 @@ String.prototype.trunc = String.prototype.trunc ||
 var tooltipDecorator = function ( node, date, risk, category, text) {
   var tooltip, handlers, eventName;
   var textLength = 80
-  var textSnippet = text.trunc(textLength)
+  var textSnippet = text ? text.trunc(textLength) : ""
   handlers = {
     mouseover: function () {
       tooltip = document.createElement( 'div' );
