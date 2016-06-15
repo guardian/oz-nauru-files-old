@@ -1,37 +1,81 @@
-<div class='controls'>
-    <h2>Filters</h2>
-    <select value='{{year}}'>
-        <option value="All">All</option>
-        <option value="2015">2015</option>
-        <option value="2014">2014</option>
-        <option value="2013">2013</option>
-    </select>
-
-    <select value='{{incidentRating}}'>
-        <option value="All">All</option>
-        <option value="Minor">Minor</option>
-        <option value="Major">Major</option>
-        <option value="Critical">Critical</option>
-        <option value="Not rated">Not rated</option>
-        <option value="Information">Information</option>
-    </select>
-
-</div>
-{{#each nauruData}}
-    <h2>{{key}}</h2>
-    {{#each values}}
-        <h3>{{key}}</h3>
-        <div class="gridItems">
-            {{#each values}}
-            <div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{category}},{{details}}'>
+<table class="years-and-stats">
+    <tr>
+        <td class="year-cell">
+            <div class="years">
+                <div class="row">
+                    {{#years:i}}
+                        {{#selected}}
+                            <a on-click='changeYear' class="selected" data-year={{year}}>{{year}}</a>
+                        {{/selected}}
+                        {{^selected}}
+                            <a on-click='changeYear' data-year={{year}}>{{year}}</a>
+                        {{/selected}}
+                    {{/years}}
+                </div>
             </div>
-            {{/each}}
+        </td>
+        <td class="months-cell">
+            <div class="month-bars">
+                <h2>Number of Incidents</h2>
+            </div>
+        </td>
+        <td class="category-cell">
+            <div class="top-categories">
+                <h2>Most Occurrences</h2>
+                {{#topCategories:i}}
+                    <div class="category">{{i+1}}. {{key}} <span class="count">{{values}}</span></div>
+                {{/topCategories}}
+                
+            </div>
+        </td>
+    </tr>
+</table>
+<div class="interactive-content">
+    <div class='filters'>
+        <h2>Filters</h2>
+        <div class="rating-filter filter">
+            <select value='{{incidentRating}}'>
+                <option value="All">All</option>
+                <option value="Minor">Minor</option>
+                <option value="Major">Major</option>
+                <option value="Critical">Critical</option>
+                <option value="Not rated">Not rated</option>
+                <option value="Information">Information</option>
+            </select>
         </div>
-        {{#quote}}
-            <div class="quote-box">
-                <div class="quote-date">{{date}}</div>
-                <div class="quote-text">{{{quote}}}</div>
-            </div>
-        {{/}}
-    {{/each}}        
-{{/each}}
+        <div class="category-filter filter">
+            <select value='{{category}}'>
+                <option value='All'>All</option>
+                {{#categories}}
+                    <option value='{{.}}'>{{.}}</option>
+                {{/categories}}
+            </select>
+        </div>
+
+    </div>
+    <!-- {{#updateMessage}}
+        <div id="updating-msg">Updating...</div>
+    {{/}} -->
+    {{#dataEmpty}}
+        <div class="no-data">No entries found</div>
+    {{/dataEmpty}}
+    {{^dataEmpty}}
+        {{#each nauruData}}
+            {{#each values}}
+                <h3>{{key}}</h3>
+                <div class="gridItems">
+                    {{#each values}}
+                    <div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}'>
+                    </div>
+                    {{/each}}
+                </div>
+                {{#quote}}
+                    <div class="quote-box">
+                        <div class="quote-date">{{date}}</div>
+                        <div class="quote-text">{{{quote}}}</div>
+                    </div>
+                {{/}}
+            {{/each}}        
+        {{/each}}
+    {{/dataEmpty}}
+</div>

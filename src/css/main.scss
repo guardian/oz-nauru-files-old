@@ -8,6 +8,125 @@
 
 .interactive-container {
   position: relative;
+  padding: 0;
+
+  .interactive-content {
+    padding: 20px;
+  }
+
+  .years-and-stats {
+    height: 120px;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    margin-top: 20px;
+
+    .year-cell, .months-cell {
+      width: 30%;
+    }
+
+    .category-cell {
+      width: 40%;
+      border-left: 1px solid #333;
+    }
+
+    td {
+      padding: 0;
+      margin: 0;
+    }
+
+    .years {
+      display: table;
+      height: 120px;
+
+      .row {
+        display: table-row;
+      }
+      a {
+        display: table-cell;
+        border-right: 1px solid #333;
+        padding: 0 20px;
+        font-size: 2.5em;
+        font-weight: 800;
+        color: #dcdcdc;
+        vertical-align: middle;
+        cursor: pointer;
+
+        &:hover {
+          background-color: #767676;
+          text-decoration: none
+        }
+        &.selected {
+          color: #fff;
+          background-color: #333;
+        }
+      }
+    }
+
+    td.months-cell, td.category-cell {
+      padding: 10px 20px;
+    }
+
+    .month-bars {
+      position: relative;
+      width: 200px;
+      height: 100%;
+      h2 {
+        padding: 0;
+        margin: 0;
+        font-size: 1em;
+        font-family: "Guardian Agate Sans 1 Web";
+        font-weight: normal;
+        color: #767676;
+      }
+      .bar {
+        display: block;
+        background-color: #333;
+        position: absolute;
+        bottom: 20px;
+      }
+      .tick {
+        bottom: 0;
+        position: absolute;
+        font-size: 0.75em;
+        text-transform: uppercase;
+        color: #767676;
+        font-family: "Guardian Agate Sans 1 Web";        
+      }
+    }
+
+    .top-categories {
+      width: 400px;
+      height: 100%;
+      h2 {
+        padding: 0;
+        margin: 0;
+        font-size: 1em;
+        font-family: "Guardian Agate Sans 1 Web";
+        font-weight: normal;
+        color: #767676;
+      }
+      .category {
+        display: inline-block;
+        width: 200px;
+        font-family: "Guardian Agate Sans 1 Web";
+        font-size: 14px;
+
+        .count {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  .filters {
+    .filter {
+      height: 40px;
+      background-color: #333;
+    }
+  }
 
   .gridItems {
     width: 60%;
@@ -15,6 +134,10 @@
     margin-bottom: 20px;
     position: relative;
   }
+
+/*  #updating-msg {
+    display:none;
+  }*/
 
   #gridContainer {
     position: relative;
@@ -74,18 +197,19 @@
     &:hover {
       outline: 2px solid #fff;
     }
-    &.Minor {
+    &.Minor, &.MINOR {
       background-color: #ffce4b;
     }
-    &.Major {
+    &.Major, &.MAJOR {
       background-color: #e6711b;
     }
-    &.Critical {
+    &.Critical, &.CRITICAL {
       background-color: #b51800;
     }
 	}
 
 	.header {
+    padding: 20px;
 		background-image: url('assets/imgs/nauru-etch-outline.png');
 	    background-repeat: no-repeat;
 	    background-position: right bottom;

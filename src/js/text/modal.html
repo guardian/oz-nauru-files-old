@@ -5,10 +5,10 @@
         <div class="modal-header">
           <h3>{{dateDisplay}}</h3>
           {{#riskRating}}<div class="severity"><span class="rating-{{riskRating}}">{{riskRating}}</span></div>{{/riskRating}} 
-          <div class="category">Type of Incident: {{category}}</div>
+          <div class="category">Type of Incident: {{type}}</div>
           <a class="close" on-tap='close'></a>
         </div>
-        <div class="modal-content"><p>{{details}} </p></div>
+        <div class="modal-content"><p>{{description}} </p></div>
       {{/details}}
     </div>
   </div>
