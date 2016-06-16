@@ -9,6 +9,18 @@
 .interactive-container {
   position: relative;
   padding: 0;
+  padding-bottom: 100px;
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+  
+  #about-modal {
+    font-weight: bold;
+    white-space: nowrap;
+  }
 
   .interactive-content {
     padding: 20px;
@@ -207,16 +219,6 @@
 /*  #updating-msg {
     display:none;
   }*/
-
-  #gridContainer {
-    position: relative;
-
-    &:after {
-      content: "";
-      display: table;
-      clear: both;
-    }
-  }
 
   .quote-box {
     width: 39%;

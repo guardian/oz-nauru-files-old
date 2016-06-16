@@ -1,7 +1,9 @@
 import reqwest from 'reqwest'
 import iframeMessenger from 'guardian/iframe-messenger'
 import mainHTML from './text/main.html!text'
-import gridItem from './text/gridItem.html!text'
+import template from './text/template.html!text'
+import incidentModal from './text/modal.html!text'
+import aboutModal from './text/aboutModal.html!text'
 import share from './lib/share'
 import Ractive from 'ractive'
 import ractiveFade from 'ractive-transitions-fade'
@@ -76,7 +78,7 @@ export function init(el, context, config, mediator) {
     // ractive.DEBUG = false;
     var ractive = new Ractive({
         events: { tap: ractiveTap },
-        el: '#gridContainer',
+        el: '.interactive-container',
         data:{
             nauruData:data,
             dataEmpty: data.length < 1,
@@ -88,7 +90,7 @@ export function init(el, context, config, mediator) {
         incidentRating:incidentRating,
         category: category,
         downgraded: downgraded,
-        template: gridItem,
+        template: template,
         decorators: {
             tooltip: Tooltip
         }
@@ -97,6 +99,7 @@ export function init(el, context, config, mediator) {
     drawBars()
 
     ractive.on('showDetail', (d) => showModal(d.context))
+    ractive.on('showAbout', (d) => showAbout())
 
     //Load modal from url param
     var hash = getHash()
@@ -297,8 +300,17 @@ export function init(el, context, config, mediator) {
         var modal = new Modal({
             transitions: { fade: ractiveFade },
             events: { tap: ractiveTap },
-            data: {details: data}
+            data: {details: data},
+            template: incidentModal
         });
         updateURL(data.id)
+    }
+
+    function showAbout() {
+        var modal = new Modal({
+            transitions: { fade: ractiveFade },
+            events: { tap: ractiveTap },
+            template: aboutModal
+        });
     }
 }

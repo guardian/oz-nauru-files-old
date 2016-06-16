@@ -1,11 +1,9 @@
 import Ractive from 'ractive'
-import template from './text/modal.html!text'
 import iframeMessenger from 'guardian/iframe-messenger'
 
 const Modal = Ractive.extend({
   el: '.interactive-container',
   append: true,
-  template: template,
   onrender: function () {
     var self = this, resizeHandler;
 
