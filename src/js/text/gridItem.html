@@ -22,18 +22,25 @@
         <td class="category-cell">
             <div class="top-categories">
                 <h2>Most Occurrences</h2>
-                {{#topCategories:i}}
-                    <div class="category">{{i+1}}. {{key}} <span class="count">{{values}}</span></div>
-                {{/topCategories}}
-                
+                <div class="categories-col">
+                    {{#topCategories[0]:i}}
+                        <div class="category">{{i+1}}. {{key}} <span class="count">{{values}}</span></div>
+                    {{/topCategories[0]}}
+                </div>
+                <div class="categories-col">
+                    {{#topCategories[1]:i}}
+                        <div class="category">{{i+5}}. {{key}} <span class="count">{{values}}</span></div>
+                    {{/topCategories[1]}}
+                </div>                
             </div>
         </td>
     </tr>
 </table>
 <div class="interactive-content">
     <div class='filters'>
-        <h2>Filters</h2>
+        <h2>Filter by</h2>
         <div class="rating-filter filter">
+            <div class="filter-label">Risk rating: <span class="selection-name">{{incidentRating}}</span></div>
             <select value='{{incidentRating}}'>
                 <option value="All">All</option>
                 <option value="Minor">Minor</option>
@@ -44,11 +51,21 @@
             </select>
         </div>
         <div class="category-filter filter">
+            <div class="filter-label">Incident type: <span class="selection-name">{{category}}</span></div>
             <select value='{{category}}'>
                 <option value='All'>All</option>
                 {{#categories}}
                     <option value='{{.}}'>{{.}}</option>
                 {{/categories}}
+            </select>
+        </div>
+          <div class="downgraded-filter filter">
+            <div class="filter-label">Downgraded? <span class="selection-name">{{downgraded}}</span></div>
+            <select value='{{downgraded}}'>
+                <option value='All'>All</option>
+                <option value='Yes'>Yes</option>
+                <option value='No'>No</option>
+                <option value='Unknown'>Unknown</option>
             </select>
         </div>
 

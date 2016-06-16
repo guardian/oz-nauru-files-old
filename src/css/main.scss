@@ -12,6 +12,7 @@
 
   .interactive-content {
     padding: 20px;
+    min-height: 200px;
   }
 
   .years-and-stats {
@@ -65,13 +66,13 @@
       }
     }
 
-    td.months-cell, td.category-cell {
-      padding: 10px 20px;
+    td.months-cell{
+      padding: 10px;
     }
 
     .month-bars {
       position: relative;
-      width: 200px;
+      width: 100%;
       height: 100%;
       h2 {
         padding: 0;
@@ -79,11 +80,11 @@
         font-size: 1em;
         font-family: "Guardian Agate Sans 1 Web";
         font-weight: normal;
-        color: #767676;
+        color: #bdbdbd;
       }
       .bar {
         display: block;
-        background-color: #333;
+        background-color: #767676;
         position: absolute;
         bottom: 20px;
       }
@@ -92,39 +93,107 @@
         position: absolute;
         font-size: 0.75em;
         text-transform: uppercase;
-        color: #767676;
+        color: #bdbdbd;
         font-family: "Guardian Agate Sans 1 Web";        
       }
     }
 
     .top-categories {
-      width: 400px;
+      width: 100%;
       height: 100%;
       h2 {
         padding: 0;
-        margin: 0;
+        margin: 10px 5px 5px;
         font-size: 1em;
         font-family: "Guardian Agate Sans 1 Web";
         font-weight: normal;
-        color: #767676;
+        color: #bdbdbd;
+        height: 16px;
+      }
+      .categories-col {
+        width: 50%;
+        float: left;
+
       }
       .category {
-        display: inline-block;
-        width: 200px;
+        border-top: 1px solid #333;
+        border-left: 1px solid #333;
+        width: 100%;
+        height: 22px;
+        line-height: 22px;
+        margin-left: -1px;
+        padding-left: 5px;
+        padding-right: 5px;
+        box-sizing: border-box;
         font-family: "Guardian Agate Sans 1 Web";
         font-size: 14px;
 
         .count {
           font-weight: bold;
+          font-family: "Guardian Agate Sans 1 Web";
+          color: #767676;
+          float: right;
         }
       }
     }
   }
 
   .filters {
+    line-height: 40px;
+    h2 {
+      display: inline-block;
+      margin-right: 10px;
+      font-size: 1.25em;
+      font-family: "Guardian Agate Sans 1 Web";
+      color: #767676;
+
+    }
     .filter {
       height: 40px;
+      display: inline-block;
       background-color: #333;
+      z-index: 10;
+      font-family: "Guardian Agate Sans 1 Web";
+      position: relative;
+      margin-right: 10px;
+      padding: 0 10px;
+      box-sizing: border-box;
+
+      .filter-label {
+        width: 100%;
+        padding-right: 30px;
+        color: #bdbdbd;
+
+        .selection-name {
+          color: #fff;
+          font-weight: bold;
+        }
+        &:after {
+          display: block;
+          position: absolute;
+          right: 10px;
+          top: 0;
+          width: 24px;
+          height: 40px;
+          content: "";
+          background: url('assets/imgs/arrow-down.svg') no-repeat center;
+        };
+      }
+      select {
+        z-index: 90;
+        opacity: 0;
+        width: 100%;
+        height: 40px;
+        line-height: 40px;
+        -webkit-appearance: menulist-button;
+        position: absolute;
+        top: 0;
+        display: block;
+        left: 0;
+        option {
+          font-size: 18px;
+        }
+      }
     }
   }
 

@@ -69,7 +69,11 @@
     }
   }
 
-  .severity, .category {
+  .downgraded {
+    margin-left: 10px;
+  }
+
+  .severity, .category, .downgraded {
     display: inline-block;
     margin-top: 20px;
     font-family: 'Guardian Agate Sans 1 Web';

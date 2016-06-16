@@ -23,6 +23,7 @@ export function init(el, context, config, mediator) {
     var filteredData,filteredYearMonth;
     var incidentRating = "All";
     var category = "All"
+    var downgraded = "All"
     var topCategories = []
     var sortYear = function (a, b) { d3.ascending(getYear.parse(a), getYear.parse(b)) };
     var sortMonth = function (a, b) { d3.ascending(getMonth.parse(a), getMonth.parse(b)) };
@@ -43,6 +44,8 @@ export function init(el, context, config, mediator) {
         .key(function(d) { return d.year; })
         .key(function(d) { return d.month; })
         .entries(nauruJson);
+
+    var nauruByYear = d3.map(nauruYearMonth, (d) => d.key)
 
     var topCategoriesByYear = d3.nest()
         .key(function(d) { return d.year; })
@@ -84,6 +87,7 @@ export function init(el, context, config, mediator) {
         },
         incidentRating:incidentRating,
         category: category,
+        downgraded: downgraded,
         template: gridItem,
         decorators: {
             tooltip: Tooltip
@@ -122,6 +126,15 @@ export function init(el, context, config, mediator) {
         }
     });
 
+    ractive.observe('downgraded', function ( newValue, oldValue ) {
+        console.log( 'changed from', oldValue, 'to', newValue );
+        downgraded = newValue;
+        if (oldValue != undefined) {
+            ractive.set('nauruData',getData())
+            ractive.set('dataEmpty', filteredData < 1)
+        }
+    });
+
     ractive.on('changeYear', (e) => {
         year = e.context.year
         ractive.set('updateMessage', true)
@@ -130,39 +143,77 @@ export function init(el, context, config, mediator) {
         ractive.set('nauruData',getData())
         ractive.set('dataEmpty', filteredData < 1)
         ractive.set('topCategories', getTopCategories())
+        updateBars()
     })
 
     function drawBars() {
-        var barData = nauruYearMonth[0].values
-        console.log('bars', barData)
+        var barData = nauruByYear.get(year).values
+        var dataByMonth = d3.map(barData, (d) => d.key)
         var contain = d3.select(".month-bars")
         var monthFormat = d3.time.format("%B")
         var monthDisplay = d3.time.format("%b")
-        var barWidth = Math.floor(100/barData.length)
-        var dateExtent = d3.extent(barData, (d) => monthFormat.parse(d.key))
-        console.log(dateExtent)
-        var x = d3.time.scale().domain(dateExtent).range([0, 100])
+        var justMonth = d3.time.format("%-m")
+        var totalWidth = contain.node().getBoundingClientRect().width
+        var dateData = d3.time.months(justMonth.parse("1"), d3.time.month.offset(justMonth.parse("12"),1))
+        console.log(dateData)
+        var gap = 4
+        var barWidth = Math.floor(totalWidth/12) - gap
+        var x = d3.time.scale().domain([justMonth.parse("1"), justMonth.parse("12")]).range([0, totalWidth - barWidth]).nice()
+        var y = d3.scale.linear().domain([0, topMonth]).range([0,70])
+
+        contain.selectAll("span.tick, div.bar").remove()
 
         var tick = contain.selectAll("span.tick")
-            .data(x.ticks(5))
+            .data(x.ticks(10))
             .enter()
             .append("span")
             .attr("class", "tick")
-            .style("left", (d) => `${x(d)}%`)
+            .style("left", (d) => `${x(d)}px`)
+            .style("opacity", (d) => {
+                var result = dataByMonth.get(monthFormat(d))
+                return result ? 1 : 0.5
+            })
             .text((d) => monthDisplay(d))
 
         contain.selectAll("div.bar")
-            .data(barData)
+            .data(dateData)
             .enter()
             .append("div")
             .attr("class", "bar")
-            .style("height", (d) => `${d.values.length}px`)
-            .style("width", `${barWidth}%`)
-            .style("left", (d,i) => `${x(monthFormat.parse(d.key))}%`)            
+            .style("height", (d) => {
+                var result = dataByMonth.get(monthFormat(d))
+                console.log(d, result)
+                return result ? `${Math.ceil(y(result.values.length))}px` : `0px`
+            })
+            .style("width", `${barWidth}px`)
+            .style("left", (d,i) => `${x(d)}px`)            
     }
 
+    function updateBars() {
+        var barData = nauruByYear.get(year).values
+        var dataByMonth = d3.map(barData, (d) => d.key)
+        var y = d3.scale.linear().domain([0, topMonth]).range([0,70])
+        var monthFormat = d3.time.format("%B")
+        
+        d3.select(".month-bars").selectAll(".tick")
+            .transition()
+            .style("opacity", (d) => {
+                var result = dataByMonth.get(monthFormat(d))
+                return result ? 1 : 0.6
+            })
+
+        d3.select(".month-bars").selectAll("div.bar")
+            .transition()
+            .style("height", (d) => {
+                var result = dataByMonth.get(monthFormat(d))
+                return result ? `${Math.ceil(y(result.values.length))}px` : `0px`
+            })
+    }
+
+
     function getTopCategories() {
-        return topCategoriesMap.get(year).values.slice(0, 8)
+        var topCat = topCategoriesMap.get(year).values
+        return [topCat.slice(0, 4), topCat.slice(4, 8)]
     }
 
     function getData() {
@@ -174,6 +225,10 @@ export function init(el, context, config, mediator) {
 
         if (category != 'All') {
             filteredData = filteredData.filter(function(d) { return d.type == category})
+        }
+
+        if (downgraded != 'All') {
+            filteredData = filteredData.filter(function(d) { return d.downgraded == downgraded})
         }
 
         filteredYearMonth = d3.nest()
