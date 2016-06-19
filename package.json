@@ -27,6 +27,7 @@
   "jspm": {
     "configFile": "src/js/config.js",
     "dependencies": {
+      "aos": "npm:aos@^1.2.1",
       "d3": "npm:d3@^3.5.17",
       "guardian/iframe-messenger": "github:guardian/iframe-messenger@master",
       "json": "github:systemjs/plugin-json@^0.1.0",

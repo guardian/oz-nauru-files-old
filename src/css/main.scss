@@ -5,6 +5,8 @@
 @import "share";
 @import "tooltip";
 @import "modal";
+@import '../../jspm_packages/npm/aos@1.2.1/src/sass/aos.scss';
+@import '../../jspm_packages/npm/aos@1.2.1/src/sass/_easing.scss';
 
 .interactive-container {
   position: relative;
@@ -22,6 +24,14 @@
     white-space: nowrap;
   }
 
+  #updating-msg {
+    display: none;
+
+    &.show {
+      display: block;
+    }
+  }
+
   .interactive-content {
     padding: 20px;
     min-height: 200px;
@@ -29,20 +39,40 @@
 
   .years-and-stats {
     height: 120px;
-    border-top: 1px solid #333;
-    border-bottom: 1px solid #333;
     border-collapse: collapse;
     border-spacing: 0;
     width: 100%;
-    margin-top: 20px;
+    padding: 20px;
 
-    .year-cell, .months-cell {
-      width: 30%;
+    @include mq($from: tablet) {
+      border-top: 1px solid #333;
+      border-bottom: 1px solid #333;
+    }
+    
+    td.year-cell, td.months-cell {
+      width: 100%;
+      display: table;
+      border: 1px solid #333;
+
+      @include mq($from: tablet) {
+        display: table-cell;
+        width: 30%;
+        margin: 0;
+        border: none;
+        height: 120px;
+
+      }
     }
 
     .category-cell {
-      width: 40%;
+      width: 100%;
       border-left: 1px solid #333;
+      display: table;
+
+      @include mq($from: tablet) {
+        display: table-cell;
+        width: 40%;
+      }
     }
 
     td {
@@ -51,11 +81,11 @@
     }
 
     .years {
-      display: table;
       height: 120px;
 
       .row {
         display: table-row;
+        height: 120px;
       }
       a {
         display: table-cell;
@@ -80,12 +110,13 @@
 
     td.months-cell{
       padding: 10px;
+      height: 100px;
     }
 
     .month-bars {
       position: relative;
       width: 100%;
-      height: 100%;
+      height: 100px;
       h2 {
         padding: 0;
         margin: 0;
@@ -107,6 +138,10 @@
         text-transform: uppercase;
         color: #bdbdbd;
         font-family: "Guardian Agate Sans 1 Web";        
+      }
+      @include mq($until: tablet) {
+        border-top: 1px solid #333;
+        border-bottom: 1px solid #333;
       }
     }
 
@@ -167,7 +202,7 @@
       z-index: 10;
       font-family: "Guardian Agate Sans 1 Web";
       position: relative;
-      margin-right: 10px;
+      margin: 10px 10px 10px 0;
       padding: 0 10px;
       box-sizing: border-box;
 
@@ -215,10 +250,6 @@
     margin-bottom: 20px;
     position: relative;
   }
-
-/*  #updating-msg {
-    display:none;
-  }*/
 
   .quote-box {
     width: 39%;

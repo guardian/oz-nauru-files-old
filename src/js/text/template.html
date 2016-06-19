@@ -9,7 +9,7 @@
     </div>
 
 </div>    
-    
+
 <table class="years-and-stats">
     <tr>
         <td class="year-cell">
@@ -82,9 +82,6 @@
         </div>
 
     </div>
-    <!-- {{#updateMessage}}
-        <div id="updating-msg">Updating...</div>
-    {{/}} -->
     {{#dataEmpty}}
         <div class="no-data">No entries found</div>
     {{/dataEmpty}}
@@ -92,14 +89,14 @@
         {{#each nauruData}}
             {{#each values}}
                 <h3>{{key}}</h3>
-                <div class="gridItems">
+                <div class="gridItems" id="{{key}}">
                     {{#each values}}
                     <div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}'>
                     </div>
                     {{/each}}
                 </div>
                 {{#quote}}
-                    <div class="quote-box">
+                    <div class="quote-box" aos="fade" aos-offset="200" aos-delay="200" aos-duration="800">
                         <div class="quote-date">{{date}}</div>
                         <div class="quote-text">{{{quote}}}</div>
                     </div>

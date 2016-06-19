@@ -12,6 +12,7 @@ import d3 from 'd3'
 import Modal from './modal'
 import Tooltip from './tooltip'
 import nauruData from './data/nauru2.json!json'
+import aos from 'aos'
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
 
@@ -31,6 +32,7 @@ export function init(el, context, config, mediator) {
     var sortMonth = function (a, b) { d3.ascending(getMonth.parse(a), getMonth.parse(b)) };
     var updateMsg = document.getElementById("updating-msg")
     var nauruJson = nauruData;
+
 
     nauruJson.forEach( function(d,i) {
         d.id = i
@@ -65,7 +67,7 @@ export function init(el, context, config, mediator) {
         { date: "21 January 2014", quote: '<span class="redacted redacted-1">[REDACTED1]</span> approached <span class="redacted redacted-2">[REDACTED2]</span> save the children and informed that a CSO had choked his son', ref: "SCA14.0042" },
         { date: "21 February 2014", quote: '<span class="redacted redacted-1">[REDACTED1]</span> reported that he wished to "kill himself"', ref: "SCA14.0069" },
         { date: "4 April 2014", quote: '<span class="redacted">[REDACTED]</span> told caseworker that she had been told to "fuck off" by security staff after advising them she had missed out on medication', ref: "SCA14.0164" },
-        { date: "3 July 2014", quote: '<span class="redacted">[REDACTED]</span> disclosed that her son <span class="redacted">[REDACTED]</span> has been making threats to kill himself, has lost weight, refusing to eat and is crying daily.', ref: "SCA14.0401" }
+        { date: "3 July 2015", quote: '<span class="redacted">[REDACTED]</span> disclosed that her son <span class="redacted">[REDACTED]</span> has been making threats to kill himself, has lost weight, refusing to eat and is crying daily.', ref: "SCA14.0401" }
     ]
 
     var data =  getData()
@@ -95,6 +97,7 @@ export function init(el, context, config, mediator) {
             tooltip: Tooltip
         }
     })
+    aos.init()
 
     drawBars()
 
@@ -106,8 +109,6 @@ export function init(el, context, config, mediator) {
     var dataMapped = d3.map(nauruJson, (d) => d.id)
 
     if(hash) {
-        console.log(hash)
-        console.log(dataMapped.get(hash))
         showModal(dataMapped.get(hash))
     }
 
@@ -140,15 +141,16 @@ export function init(el, context, config, mediator) {
 
     ractive.on('changeYear', (e) => {
         year = e.context.year
-        ractive.set('updateMessage', true)
         ractive.set('years.*.selected', false)
         ractive.set(`years.${e.index.i}.selected`, true)
+        ractive.set('updateMessage', true)
         ractive.set('nauruData',getData())
         ractive.set('dataEmpty', filteredData < 1)
         ractive.set('topCategories', getTopCategories())
         updateBars()
-    })
+        aos.init()
 
+    })
     function drawBars() {
         var barData = nauruByYear.get(year).values
         var dataByMonth = d3.map(barData, (d) => d.key)
@@ -158,7 +160,6 @@ export function init(el, context, config, mediator) {
         var justMonth = d3.time.format("%-m")
         var totalWidth = contain.node().getBoundingClientRect().width
         var dateData = d3.time.months(justMonth.parse("1"), d3.time.month.offset(justMonth.parse("12"),1))
-        console.log(dateData)
         var gap = 4
         var barWidth = Math.floor(totalWidth/12) - gap
         var x = d3.time.scale().domain([justMonth.parse("1"), justMonth.parse("12")]).range([0, totalWidth - barWidth]).nice()
@@ -185,7 +186,6 @@ export function init(el, context, config, mediator) {
             .attr("class", "bar")
             .style("height", (d) => {
                 var result = dataByMonth.get(monthFormat(d))
-                console.log(d, result)
                 return result ? `${Math.ceil(y(result.values.length))}px` : `0px`
             })
             .style("width", `${barWidth}px`)
@@ -220,6 +220,7 @@ export function init(el, context, config, mediator) {
     }
 
     function getData() {
+
         filteredData = nauruJson.filter(function(d) { return d.year == year })
 
         if (incidentRating != 'All') {
@@ -297,12 +298,19 @@ export function init(el, context, config, mediator) {
     }
 
     function showModal(data) {
+        var linkURL = window.location.origin + window.location.pathname
+        var urlString = `#incident=${data.id}`
+        var tweetURL = `https://twitter.com/intent/tweet?text=Three+years+worth+of+incidents+from+the+Nauru+detention+centre+&url=${linkURL}${urlString}`;
         var modal = new Modal({
             transitions: { fade: ractiveFade },
             events: { tap: ractiveTap },
-            data: {details: data},
+            data: {
+                details: data,
+                tweetURL: tweetURL
+                },
             template: incidentModal
         });
+
         updateURL(data.id)
     }
 
