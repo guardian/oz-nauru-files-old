@@ -35,7 +35,7 @@ export function init(el, context, config, mediator) {
 
 
     nauruJson.forEach( function(d,i) {
-        d.id = i
+        d.id = cleanID(d.reference)
         d.date = dateFormat.parse(d.date);
         d.dateDisplay = dateDisplay(d.date)
         d.month = getMonth(d.date);
@@ -190,6 +190,11 @@ export function init(el, context, config, mediator) {
             })
             .style("width", `${barWidth}px`)
             .style("left", (d,i) => `${x(d)}px`)            
+    }
+
+    function cleanID(id) {
+        var cleanID = id.replace(/[\. ]+/g, '').toLowerCase()
+        return cleanID
     }
 
     function updateBars() {
