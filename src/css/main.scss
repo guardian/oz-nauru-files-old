@@ -38,63 +38,40 @@
   }
 
   .years-and-stats {
-    height: 120px;
-    border-collapse: collapse;
-    border-spacing: 0;
     width: 100%;
-    padding: 20px;
+    margin-top: 20px;
+    border-top: 1px solid #333;
+    border-bottom: 1px solid #333;
 
-    @include mq($from: tablet) {
-      border-top: 1px solid #333;
-      border-bottom: 1px solid #333;
+    @include mq($from: desktop) {
+      height: 120px;
     }
-    
-    td.year-cell, td.months-cell {
-      width: 100%;
-      display: table;
-      border: 1px solid #333;
 
-      @include mq($from: tablet) {
-        display: table-cell;
-        width: 30%;
-        margin: 0;
-        border: none;
-        height: 120px;
-
+    & > div {
+      @include mq($from: desktop) {
+        float: left;
       }
     }
 
-    .category-cell {
-      width: 100%;
-      border-left: 1px solid #333;
+    &:after {
+      content: "";
       display: table;
-
-      @include mq($from: tablet) {
-        display: table-cell;
-        width: 40%;
-      }
-    }
-
-    td {
-      padding: 0;
-      margin: 0;
+      clear: both;
     }
 
     .years {
-      height: 120px;
+      height: 100%;
+      display: table;
+      box-sizing: border-box;
 
-      .row {
-        display: table-row;
-        height: 120px;
-      }
       a {
         display: table-cell;
         border-right: 1px solid #333;
-        padding: 0 20px;
         font-size: 2.5em;
         font-weight: 800;
         color: #dcdcdc;
         vertical-align: middle;
+        text-align: center;
         cursor: pointer;
 
         &:hover {
@@ -106,20 +83,38 @@
           background-color: #333;
         }
       }
-    }
+      @media (max-width: 1200px) {
+        a {
+          font-size: 1.75em;
+        }
+      }
 
-    td.months-cell{
-      padding: 10px;
-      height: 100px;
+      @include mq($from: desktop) {
+        width: 30%;
+        height: 120px;
+      }
+      @include mq($from: tablet, $until: desktop) {
+        width: 40%;
+        float: left;
+        border-bottom: 1px solid #333;
+        height: 100px;
+      }
+      @include mq($until: tablet) {
+        width: 100%;
+        float: none;
+        height: 80px;
+        border-bottom: 1px solid #333;
+      }
     }
 
     .month-bars {
       position: relative;
       width: 100%;
       height: 100px;
+
       h2 {
         padding: 0;
-        margin: 0;
+        margin: 10px 10px 5px;
         font-size: 1em;
         font-family: "Guardian Agate Sans 1 Web";
         font-weight: normal;
@@ -132,15 +127,33 @@
         bottom: 20px;
       }
       .tick {
-        bottom: 0;
+        bottom: 5px;
         position: absolute;
         font-size: 0.75em;
         text-transform: uppercase;
         color: #bdbdbd;
-        font-family: "Guardian Agate Sans 1 Web";        
+        font-family: "Guardian Agate Sans 1 Web";    
+        @media (max-width: 1200px) {
+          display: none;
+          &:first-of-type {
+            display: block;
+          }
+          &:nth-child(3n + 1) {
+            display: block;
+          };
+        } 
+      }
+      @include mq($from: desktop) {
+        width: 30%;
+      }
+      @include mq($from: tablet, $until: desktop) {
+        width: 60%;
+        float: left;
+        border-bottom: 1px solid #333;
       }
       @include mq($until: tablet) {
-        border-top: 1px solid #333;
+        width: 100%;
+        float: none;
         border-bottom: 1px solid #333;
       }
     }
@@ -148,9 +161,11 @@
     .top-categories {
       width: 100%;
       height: 100%;
+      border-left: 1px solid #333;
+      margin-left: -1px;
       h2 {
         padding: 0;
-        margin: 10px 5px 5px;
+        margin: 10px 10px 5px;
         font-size: 1em;
         font-family: "Guardian Agate Sans 1 Web";
         font-weight: normal;
@@ -173,7 +188,10 @@
         padding-right: 5px;
         box-sizing: border-box;
         font-family: "Guardian Agate Sans 1 Web";
-        font-size: 14px;
+        font-size: 13px;
+        @media (max-width: 1200px) {
+          font-size: 11px;
+        }
 
         .count {
           font-weight: bold;
@@ -181,6 +199,25 @@
           color: #767676;
           float: right;
         }
+      }
+      @include mq($from: desktop) {
+        width: 40%;
+      }
+      @include mq($from: tablet, $until: desktop) {
+        font-size: 12px;
+        clear: both;
+        border-bottom: 1px solid #333;
+
+        h2 {
+          padding-top: 10px;
+        }
+
+      }
+      @include mq($until: tablet) {
+        width: 100%;
+        border-bottom: 1px solid #333;
+        font-size: 12px;
+        clear: both;
       }
     }
   }
@@ -249,6 +286,10 @@
     float: left;
     margin-bottom: 20px;
     position: relative;
+    @include mq($until: tablet) {
+      width: 100%;
+      float: none;
+    }
   }
 
   .quote-box {
@@ -275,6 +316,11 @@
       .redacted-2 {
         color: #767676;
       }*/
+    }
+    @include mq($until: tablet) {
+      width: 100%;
+      float: none;
+      margin-left: 0;
     }
   }
 
@@ -325,6 +371,13 @@
 		margin-left:2em;
 		font-weight:600;
 		width: 40%;
+
+    @include mq($until: tablet) {
+      width: 100%;
+      margin-left: 0;
+      box-sizing: border-box;
+      padding: 0 20px;
+    }    
 	}
 
 	.headerSmall {

@@ -32,6 +32,8 @@ export function init(el, context, config, mediator) {
     var sortMonth = function (a, b) { d3.ascending(getMonth.parse(a), getMonth.parse(b)) };
     var updateMsg = document.getElementById("updating-msg")
     var nauruJson = nauruData;
+    var aosOpts = { disable: 'mobile' }
+
 
 
     nauruJson.forEach( function(d,i) {
@@ -97,7 +99,7 @@ export function init(el, context, config, mediator) {
             tooltip: Tooltip
         }
     })
-    aos.init()
+    aos.init(aosOpts)
 
     drawBars()
 
@@ -148,7 +150,7 @@ export function init(el, context, config, mediator) {
         ractive.set('dataEmpty', filteredData < 1)
         ractive.set('topCategories', getTopCategories())
         updateBars()
-        aos.init()
+        aos.init(aosOpts)
 
     })
     function drawBars() {
@@ -158,11 +160,12 @@ export function init(el, context, config, mediator) {
         var monthFormat = d3.time.format("%B")
         var monthDisplay = d3.time.format("%b")
         var justMonth = d3.time.format("%-m")
-        var totalWidth = contain.node().getBoundingClientRect().width
+        // var totalWidth = contain.node().getBoundingClientRect().width
+        var totalWidth = 100
         var dateData = d3.time.months(justMonth.parse("1"), d3.time.month.offset(justMonth.parse("12"),1))
-        var gap = 4
-        var barWidth = Math.floor(totalWidth/12) - gap
-        var x = d3.time.scale().domain([justMonth.parse("1"), justMonth.parse("12")]).range([0, totalWidth - barWidth]).nice()
+        var gap = 2
+        var barWidth = 6
+        var x = d3.time.scale().domain([justMonth.parse("1"), justMonth.parse("12")]).range([3, totalWidth - barWidth - 3]).nice()
         var y = d3.scale.linear().domain([0, topMonth]).range([0,70])
 
         contain.selectAll("span.tick, div.bar").remove()
@@ -172,7 +175,7 @@ export function init(el, context, config, mediator) {
             .enter()
             .append("span")
             .attr("class", "tick")
-            .style("left", (d) => `${x(d)}px`)
+            .style("left", (d) => `${x(d)}%`)
             .style("opacity", (d) => {
                 var result = dataByMonth.get(monthFormat(d))
                 return result ? 1 : 0.5
@@ -188,8 +191,8 @@ export function init(el, context, config, mediator) {
                 var result = dataByMonth.get(monthFormat(d))
                 return result ? `${Math.ceil(y(result.values.length))}px` : `0px`
             })
-            .style("width", `${barWidth}px`)
-            .style("left", (d,i) => `${x(d)}px`)            
+            .style("width", `${barWidth}%`)
+            .style("left", (d,i) => `${x(d)}%`)            
     }
 
     function cleanID(id) {

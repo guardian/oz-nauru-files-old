@@ -10,44 +10,34 @@
 
 </div>    
 
-<table class="years-and-stats">
-    <tr>
-        <td class="year-cell">
-            <div class="years">
-                <div class="row">
-                    {{#years:i}}
-                        {{#selected}}
-                            <a on-click='changeYear' class="selected" data-year={{year}}>{{year}}</a>
-                        {{/selected}}
-                        {{^selected}}
-                            <a on-click='changeYear' data-year={{year}}>{{year}}</a>
-                        {{/selected}}
-                    {{/years}}
-                </div>
-            </div>
-        </td>
-        <td class="months-cell">
-            <div class="month-bars">
-                <h2>Number of Incidents</h2>
-            </div>
-        </td>
-        <td class="category-cell">
-            <div class="top-categories">
-                <h2>Most Occurrences</h2>
-                <div class="categories-col">
-                    {{#topCategories[0]:i}}
-                        <div class="category">{{i+1}}. {{key}} <span class="count">{{values}}</span></div>
-                    {{/topCategories[0]}}
-                </div>
-                <div class="categories-col">
-                    {{#topCategories[1]:i}}
-                        <div class="category">{{i+5}}. {{key}} <span class="count">{{values}}</span></div>
-                    {{/topCategories[1]}}
-                </div>                
-            </div>
-        </td>
-    </tr>
-</table>
+<div class="years-and-stats">
+    <div class="years">
+        {{#years:i}}
+            {{#selected}}
+                <a on-click='changeYear' class="selected" data-year={{year}}>{{year}}</a>
+            {{/selected}}
+            {{^selected}}
+                <a on-click='changeYear' data-year={{year}}>{{year}}</a>
+            {{/selected}}
+        {{/years}}
+    </div>
+    <div class="month-bars">
+        <h2>Number of Incidents</h2>
+    </div>
+    <div class="top-categories">
+        <h2>Most Occurrences</h2>
+        <div class="categories-col">
+            {{#topCategories[0]:i}}
+                <div class="category">{{i+1}}. {{key}} <span class="count">{{values}}</span></div>
+            {{/topCategories[0]}}
+        </div>
+        <div class="categories-col">
+            {{#topCategories[1]:i}}
+                <div class="category">{{i+5}}. {{key}} <span class="count">{{values}}</span></div>
+            {{/topCategories[1]}}
+        </div>                
+    </div>
+</div>
 <div class="interactive-content">
     <div class='filters'>
         <h2>Filter by</h2>
@@ -96,7 +86,7 @@
                     {{/each}}
                 </div>
                 {{#quote}}
-                    <div class="quote-box" aos="fade" aos-offset="200" aos-delay="100" aos-duration="800">
+                    <div class="quote-box" aos="fade" aos-offset="100" aos-delay="100" aos-duration="800">
                         <div class="quote-date">{{date}}</div>
                         <div class="quote-text">{{{quote}}}</div>
                     </div>
