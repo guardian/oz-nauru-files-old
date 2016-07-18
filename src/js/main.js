@@ -1,9 +1,11 @@
 import reqwest from 'reqwest'
+import jquery from 'jquery'
 import iframeMessenger from 'guardian/iframe-messenger'
 import mainHTML from './text/main.html!text'
 import template from './text/template.html!text'
 import incidentModal from './text/modal.html!text'
 import aboutModal from './text/aboutModal.html!text'
+import reportModal from './text/reportModal.html!text'
 import share from './lib/share'
 import Ractive from 'ractive'
 import ractiveFade from 'ractive-transitions-fade'
@@ -319,19 +321,9 @@ export function init(el, context, config, mediator) {
         
         if ( window.self !== window.top ) {
             iframeMessenger.navigate(urlString);
-            // iframeMessenger.getLocation(function(parLocation) {
-            // linkURL = parLocation['href'];
-            //     tweetLinkURL = "https://twitter.com/intent/tweet?text=Here's+my+plan+for+tax+reform+in+Australia:+&url=" + parLocation['origin'] + parLocation['pathname'] + "%23" + urldata.join(",") + "&hashtags=ruleinruleout";
-            //     ractive.set('tweetLinkURL',tweetLinkURL);
-            //     ractive.set('linkURL',linkURL);
-            // });
         }
         else {
-            window.location.hash = urlString;
-            // linkURL = window.location.origin + window.location.pathname + "#" + urldata.join(",");
-            // tweetLinkURL = "https://twitter.com/intent/tweet?text=Here's+my+plan+for+tax+reform+in+Australia:+&url=" + window.location.origin + window.location.pathname + "%23" + urldata.join(",") + "&hashtags=ruleinruleout";
-            // ractive.set('tweetLinkURL',tweetLinkURL);
-            // ractive.set('linkURL',linkURL);            
+            window.location.hash = urlString;        
         }
     }
 
@@ -348,7 +340,23 @@ export function init(el, context, config, mediator) {
         else {
             return false
         }
+    }
 
+    function showReport(data) {
+        var modal = new Modal({
+            transitions: { fade: ractiveFade },
+            events: { tap: ractiveTap },
+            data: {
+                incident: data
+            },
+            template: reportModal
+        });
+
+        $("#nauru-report-submit").click(function() {
+            $("#nauru-report-form").submit();
+            modal.fire("close")
+            $("#submit-msg").css('display', 'block')
+        });
     }
 
     function showModal(data) {
@@ -364,6 +372,7 @@ export function init(el, context, config, mediator) {
                 },
             template: incidentModal
         });
+        modal.on('showReport', function(d) { showReport(d.context)})
 
         updateURL(data.id)
     }
@@ -375,4 +384,5 @@ export function init(el, context, config, mediator) {
             template: aboutModal
         });
     }
+
 }

@@ -1,0 +1,21 @@
+<div class='modal-background' on-tap='bg-close' intro='fade' outro='fade'>
+  <div class='modal-outer'>
+    <div class='modal'>
+        <div class="modal-header">
+          <h3>Submit a note</h3>
+          <a class="close" on-tap='close'></a>
+        </div>
+        <div class="modal-content">
+            <form action="https://docs.google.com/a/guardian.co.uk/forms/d/e/1FAIpQLSd7XrWUpd4NUvIkKBBluQRC5rMdC7eUvSqCqJK-dslQlqvozA/formResponse" method="POST" id="nauru-report-form" target="hidden_iframe" onsubmit="">
+            <label for="nauru-form-note">Comments</label>
+            <textarea type="text" name="entry.396313401" id="nauru-form-note" dir="auto" aria-label="Notes"></textarea>
+            {{#incident}}
+            <input type="hidden" name="entry.2086906651" value="{{id}}">
+            {{/incident}}
+            <input type="submit" name="submitButton" value="Submit" id="nauru-report-submit">
+            </form>
+            <iframe name="hidden_iframe" id="hidden_iframe" ></iframe>
+        </div>
+    </div>
+  </div>
+</div>

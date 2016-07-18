@@ -13,15 +13,16 @@ System.config({
   },
 
   map: {
-    "aos": "npm:aos@1.2.1",
+    "aos": "npm:aos@1.2.2",
     "d3": "npm:d3@3.5.17",
     "guardian/iframe-messenger": "github:guardian/iframe-messenger@master",
-    "json": "github:systemjs/plugin-json@0.1.0",
+    "jquery": "npm:jquery@2.2.4",
+    "json": "github:systemjs/plugin-json@0.1.2",
     "ractive": "github:ractivejs/ractive@0.7.3",
     "ractive-events-tap": "npm:ractive-events-tap@0.3.0",
     "ractive-transitions-fade": "npm:ractive-transitions-fade@0.3.1",
     "ractivejs/ractive-events-mousewheel": "github:ractivejs/ractive-events-mousewheel@0.1.0",
-    "reqwest": "github:ded/reqwest@1.1.5",
+    "reqwest": "github:ded/reqwest@1.1.6",
     "text": "github:systemjs/plugin-text@0.0.2",
     "traceur": "github:jmcriffey/bower-traceur@0.0.91",
     "traceur-runtime": "github:jmcriffey/bower-traceur-runtime@0.0.91",
@@ -40,7 +41,7 @@ System.config({
     "github:jspm/nodelibs-vm@0.1.0": {
       "vm-browserify": "npm:vm-browserify@0.0.4"
     },
-    "npm:aos@1.2.1": {
+    "npm:aos@1.2.2": {
       "lodash.assign": "npm:lodash.assign@3.2.0",
       "lodash.debounce": "npm:lodash.debounce@3.1.1",
       "lodash.foreach": "npm:lodash.foreach@3.0.3",

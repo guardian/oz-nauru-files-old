@@ -81,12 +81,12 @@
                 <h3>{{key}}</h3>
                 <div class="gridItems" id="{{key}}">
                     {{#each values}}
-                    <div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}'>
+                    <div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}' {{#hasQuote}} data-aos="show-border" data-aos-offset="100" data-aos-delay="100" data-aos-duration="800"{{/hasQuote}}>
                     </div>
                     {{/each}}
                 </div>
                 {{#quote}}
-                    <div class="quote-box" aos="fade" aos-offset="100" aos-delay="100" aos-duration="800">
+                    <div id="quote-{{id}}" class="quote-box" data-aos="fade" data-aos-offset="100" data-aos-delay="100" data-aos-duration="800">
                         <div class="quote-date">{{date}}</div>
                         <div class="quote-text">{{{quote}}}</div>
                     </div>
