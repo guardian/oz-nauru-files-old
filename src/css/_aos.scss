@@ -1,0 +1,19 @@
+[aos="show-border"] {
+  outline-color: #fff;
+  outline-style: solid;
+  outline-width: 0px;
+  transition-property: outline-width;
+
+  &.aos-animate {
+    animation: blink 2s infinite;
+  }
+}
+
+@keyframes blink {
+  0%, 20%, 80%, 100% {
+    outline-width:0px;
+  }
+  50% {
+    outline-width: 3px;
+  }
+}

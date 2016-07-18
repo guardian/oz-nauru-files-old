@@ -30,6 +30,7 @@
       "aos": "npm:aos@^1.2.1",
       "d3": "npm:d3@^3.5.17",
       "guardian/iframe-messenger": "github:guardian/iframe-messenger@master",
+      "jquery": "npm:jquery@2.2.4",
       "json": "github:systemjs/plugin-json@^0.1.0",
       "ractive": "github:ractivejs/ractive@^0.7.3",
       "ractive-events-tap": "npm:ractive-events-tap@^0.3.0",
