@@ -12,6 +12,7 @@ import d3 from 'd3'
 import Modal from './modal'
 import Tooltip from './tooltip'
 import nauruData from './data/nauru2.json!json'
+import quotes from './data/quotes.json!json'
 import aos from 'aos'
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
@@ -34,8 +35,6 @@ export function init(el, context, config, mediator) {
     var nauruJson = nauruData;
     var aosOpts = { disable: 'mobile' }
 
-
-
     nauruJson.forEach( function(d,i) {
         d.id = cleanID(d.reference)
         d.date = dateFormat.parse(d.date);
@@ -43,6 +42,7 @@ export function init(el, context, config, mediator) {
         d.month = getMonth(d.date);
         d.year = getYear(d.date);
     });
+    var dataMapped = d3.map(nauruJson, (d) => d.id)
 
     var nauruCategoryMap = d3.map(nauruJson, (d) => d.type)
 
@@ -65,12 +65,22 @@ export function init(el, context, config, mediator) {
     })
 
     var topMonth = d3.max(topCategoriesByYear, (d) => d3.max(d.values, (y) => y.values) )
-    var quoteData = [
-        { date: "21 January 2014", quote: '<span class="redacted redacted-1">[REDACTED1]</span> approached <span class="redacted redacted-2">[REDACTED2]</span> save the children and informed that a CSO had choked his son', ref: "SCA14.0042" },
-        { date: "21 February 2014", quote: '<span class="redacted redacted-1">[REDACTED1]</span> reported that he wished to "kill himself"', ref: "SCA14.0069" },
-        { date: "4 April 2014", quote: '<span class="redacted">[REDACTED]</span> told caseworker that she had been told to "fuck off" by security staff after advising them she had missed out on medication', ref: "SCA14.0164" },
-        { date: "3 July 2015", quote: '<span class="redacted">[REDACTED]</span> disclosed that her son <span class="redacted">[REDACTED]</span> has been making threats to kill himself, has lost weight, refusing to eat and is crying daily.', ref: "SCA14.0401" }
-    ]
+    // var quoteData = [
+    //     { date: "21 January 2014", quote: '<span class="redacted redacted-1">[REDACTED1]</span> approached <span class="redacted redacted-2">[REDACTED2]</span> save the children and informed that a CSO had choked his son', ref: "SCA14.0042" },
+    //     { date: "21 February 2014", quote: '<span class="redacted redacted-1">[REDACTED1]</span> reported that he wished to "kill himself"', ref: "SCA14.0069" },
+    //     { date: "4 April 2014", quote: '<span class="redacted">[REDACTED]</span> told caseworker that she had been told to "fuck off" by security staff after advising them she had missed out on medication', ref: "SCA14.0164" },
+    //     { date: "3 July 2015", quote: '<span class="redacted">[REDACTED]</span> disclosed that her son <span class="redacted">[REDACTED]</span> has been making threats to kill himself, has lost weight, refusing to eat and is crying daily.', ref: "SCA14.0401" }
+    // ]
+    console.log(quotes)
+    var quoteData = quotes
+    quoteData.forEach((d) => {
+        d.id = cleanID(d.ref)
+        var e = dataMapped.get(d.id)
+        if (e) e.hasQuote = true
+        // console.log(d.id, dataMapped.get(d.id))
+    })
+
+    nauruJson = dataMapped.values()
 
     var data =  getData()
     var years = [
@@ -108,7 +118,6 @@ export function init(el, context, config, mediator) {
 
     //Load modal from url param
     var hash = getHash()
-    var dataMapped = d3.map(nauruJson, (d) => d.id)
 
     if(hash) {
         showModal(dataMapped.get(hash))
@@ -130,6 +139,7 @@ export function init(el, context, config, mediator) {
             ractive.set('nauruData',getData())
             ractive.set('dataEmpty', filteredData < 1)
         }
+        aos.init(aosOpts)
     });
 
     ractive.observe('downgraded', function ( newValue, oldValue ) {
@@ -139,6 +149,7 @@ export function init(el, context, config, mediator) {
             ractive.set('nauruData',getData())
             ractive.set('dataEmpty', filteredData < 1)
         }
+        aos.init(aosOpts)
     });
 
     ractive.on('changeYear', (e) => {
@@ -169,6 +180,11 @@ export function init(el, context, config, mediator) {
         var y = d3.scale.linear().domain([0, topMonth]).range([0,70])
 
         contain.selectAll("span.tick, div.bar").remove()
+        
+        var value = contain.append("div")
+            .attr("class", "value")
+            .style("width", `${barWidth}%`)
+
 
         var tick = contain.selectAll("span.tick")
             .data(x.ticks(10))
@@ -182,17 +198,35 @@ export function init(el, context, config, mediator) {
             })
             .text((d) => monthDisplay(d))
 
-        contain.selectAll("div.bar")
+        var bar = contain.selectAll("div.bar")
             .data(dateData)
             .enter()
             .append("div")
             .attr("class", "bar")
+            .style("width", `${barWidth}%`)
+            .style("left", (d,i) => `${x(d)}%`) 
+            .on("mouseover", function(){ d3.select(this).select('.value').style("display", "block")})
+            .on("mouseout", function(){ d3.select(this).select('.value').style("display", "none")})
+
+
+        var fill = bar.append("div")
+            .attr("class", "fill")
             .style("height", (d) => {
                 var result = dataByMonth.get(monthFormat(d))
                 return result ? `${Math.ceil(y(result.values.length))}px` : `0px`
             })
-            .style("width", `${barWidth}%`)
-            .style("left", (d,i) => `${x(d)}%`)            
+
+        var value = bar.append("div")
+            .attr("class", "value")
+            .text((d) => {
+                var result = dataByMonth.get(monthFormat(d))
+                return result ? result.values.length : ''
+            })
+            .style("bottom", (d) => {
+                var result = dataByMonth.get(monthFormat(d))
+                return result ? `${Math.ceil(y(result.values.length)) + 20}px` : '0px'
+            })
+
     }
 
     function cleanID(id) {
@@ -205,7 +239,8 @@ export function init(el, context, config, mediator) {
         var dataByMonth = d3.map(barData, (d) => d.key)
         var y = d3.scale.linear().domain([0, topMonth]).range([0,70])
         var monthFormat = d3.time.format("%B")
-        
+        var value = d3.select('.month-bars .value')
+
         d3.select(".month-bars").selectAll(".tick")
             .transition()
             .style("opacity", (d) => {
@@ -213,11 +248,22 @@ export function init(el, context, config, mediator) {
                 return result ? 1 : 0.6
             })
 
-        d3.select(".month-bars").selectAll("div.bar")
-            .transition()
+        var bar = d3.select(".month-bars").selectAll("div.bar")
+
+        bar.select('.fill').transition()
             .style("height", (d) => {
                 var result = dataByMonth.get(monthFormat(d))
                 return result ? `${Math.ceil(y(result.values.length))}px` : `0px`
+            })
+
+        bar.select('.value')
+            .text((d) => {
+                var result = dataByMonth.get(monthFormat(d))
+                return result ? result.values.length : ''
+            })
+            .style("bottom", (d) => {
+                var result = dataByMonth.get(monthFormat(d))
+                return result ? `${Math.ceil(y(result.values.length)) + 20}px` : '0px'
             })
     }
 
