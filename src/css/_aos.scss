@@ -2,18 +2,33 @@
   outline-color: #fff;
   outline-style: solid;
   outline-width: 0px;
-  transition-property: outline-width;
+  position: relative;
+  z-index: initial;
 
-  &.aos-animate {
+  &:before {
+    display: block;
+    content: "";
+    position: absolute;
+    z-index: -1;
+    background-color: #fff;
+    width: 30px;
+    height: 30px;
+    top: 0px;
+    left: 0px;
+    transition-property: transform;
+
+  }
+
+  &.aos-animate:before {
     animation: blink 2s infinite;
   }
 }
 
 @keyframes blink {
-  0%, 20%, 80%, 100% {
-    outline-width:0px;
+  0%, 10%, 90%, 100% {
+    transform:scale(1);
   }
   50% {
-    outline-width: 3px;
+    transform:scale(1.2);
   }
 }
