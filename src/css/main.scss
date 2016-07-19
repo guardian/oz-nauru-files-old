@@ -47,6 +47,7 @@
   .interactive-content {
     padding: 20px;
     min-height: 200px;
+    position: relative;
   }
 
   .years-and-stats {
@@ -312,7 +313,7 @@
     float: left;
     margin-bottom: 20px;
     position: relative;
-    z-index: 10;
+    z-index: 1;
     @include mq($until: tablet) {
       width: 100%;
       float: none;

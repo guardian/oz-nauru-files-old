@@ -18,12 +18,12 @@ var tooltipDecorator = function ( node, date, risk, category, text) {
           <div class="text">${textSnippet}`
       htmlContent = (text.length > textLength) ? htmlContent.concat(" <span class='more'>click to see more</spn></div>") : htmlContent.concat("</div>")
       tooltip.innerHTML = htmlContent
-      node.parentNode.insertBefore( tooltip, node );
+      node.parentNode.parentNode.insertBefore( tooltip, node.parentNode );
     },
 
     mousemove: function ( event ) {
-      tooltip.style.left = event.clientX - node.parentNode.getBoundingClientRect().left + 'px';
-      tooltip.style.top = ( event.clientY - node.parentNode.getBoundingClientRect().top) + 'px';
+      tooltip.style.left = event.clientX - node.parentNode.parentNode.getBoundingClientRect().left + 'px';
+      tooltip.style.top = ( event.clientY - node.parentNode.parentNode.getBoundingClientRect().top) + 'px';
     },
 
     click: function () {
