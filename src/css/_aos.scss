@@ -1,7 +1,4 @@
 [aos="show-border"] {
-  outline-color: #fff;
-  outline-style: solid;
-  outline-width: 0px;
   position: relative;
   z-index: initial;
 
@@ -16,7 +13,6 @@
     top: 0px;
     left: 0px;
     transition-property: transform;
-
   }
 
   &.aos-animate:before {

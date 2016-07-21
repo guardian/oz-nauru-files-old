@@ -14,7 +14,7 @@ import d3 from 'd3'
 import Modal from './modal'
 import Tooltip from './tooltip'
 import nauruData from './data/nauru2.json!json'
-import quotes from './data/quotes.json!json'
+import quotes from './data/quotes-updated.json!json'
 import aos from 'aos'
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
@@ -67,19 +67,14 @@ export function init(el, context, config, mediator) {
     })
 
     var topMonth = d3.max(topCategoriesByYear, (d) => d3.max(d.values, (y) => y.values) )
-    // var quoteData = [
-    //     { date: "21 January 2014", quote: '<span class="redacted redacted-1">[REDACTED1]</span> approached <span class="redacted redacted-2">[REDACTED2]</span> save the children and informed that a CSO had choked his son', ref: "SCA14.0042" },
-    //     { date: "21 February 2014", quote: '<span class="redacted redacted-1">[REDACTED1]</span> reported that he wished to "kill himself"', ref: "SCA14.0069" },
-    //     { date: "4 April 2014", quote: '<span class="redacted">[REDACTED]</span> told caseworker that she had been told to "fuck off" by security staff after advising them she had missed out on medication', ref: "SCA14.0164" },
-    //     { date: "3 July 2015", quote: '<span class="redacted">[REDACTED]</span> disclosed that her son <span class="redacted">[REDACTED]</span> has been making threats to kill himself, has lost weight, refusing to eat and is crying daily.', ref: "SCA14.0401" }
-    // ]
+
     console.log(quotes)
     var quoteData = quotes
     quoteData.forEach((d) => {
         d.id = cleanID(d.ref)
         var e = dataMapped.get(d.id)
+        console.log(e.id, d.id)
         if (e) e.hasQuote = true
-        // console.log(d.id, dataMapped.get(d.id))
     })
 
     nauruJson = dataMapped.values()
@@ -129,7 +124,7 @@ export function init(el, context, config, mediator) {
         console.log( 'changed from', oldValue, 'to', newValue );
         incidentRating = newValue;
         if (oldValue != undefined) {
-            ractive.set('nauruData',getData())
+            ractive.set('nauruData',getData()).then(function(){aos.init(aosOpts)})
             ractive.set('dataEmpty', filteredData < 1)
         }
     });
@@ -138,7 +133,7 @@ export function init(el, context, config, mediator) {
         console.log( 'changed from', oldValue, 'to', newValue );
         category = newValue;
         if (oldValue != undefined) {
-            ractive.set('nauruData',getData())
+            ractive.set('nauruData',getData()).then(function(){aos.init(aosOpts)})
             ractive.set('dataEmpty', filteredData < 1)
         }
         aos.init(aosOpts)
@@ -148,7 +143,7 @@ export function init(el, context, config, mediator) {
         console.log( 'changed from', oldValue, 'to', newValue );
         downgraded = newValue;
         if (oldValue != undefined) {
-            ractive.set('nauruData',getData())
+            ractive.set('nauruData',getData()).then(function(){aos.init(aosOpts)})
             ractive.set('dataEmpty', filteredData < 1)
         }
         aos.init(aosOpts)
@@ -159,7 +154,7 @@ export function init(el, context, config, mediator) {
         ractive.set('years.*.selected', false)
         ractive.set(`years.${e.index.i}.selected`, true)
         ractive.set('updateMessage', true)
-        ractive.set('nauruData',getData())
+        ractive.set('nauruData',getData()).then(function(){aos.init(aosOpts)})
         ractive.set('dataEmpty', filteredData < 1)
         ractive.set('topCategories', getTopCategories())
         updateBars()

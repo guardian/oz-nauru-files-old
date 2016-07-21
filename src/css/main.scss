@@ -12,7 +12,7 @@
 .interactive-container {
   position: relative;
   padding: 0;
-  padding-bottom: 200px;
+  padding-bottom: 100px;
 
   &:after {
     content: "";
@@ -177,6 +177,7 @@
         width: 60%;
         float: left;
         border-bottom: 1px solid #333;
+        height: 99px;
       }
       @include mq($until: tablet) {
         width: 100%;
@@ -366,8 +367,8 @@
 	.gridItem {
 		width:30px;
 		height:30px;
-		display: inline-block;
-		margin: 6px 12px 0 0;
+		float: left;
+		margin: 12px 12px 0 0;
 		background-color:grey;
 
     &:hover {
