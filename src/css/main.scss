@@ -317,8 +317,9 @@
     li { 
       display: inline-block;
       text-decoration: none;
-      margin: 0 8px;
+      margin: 0 6px;
       vertical-align: middle;
+      font-size: 14px;
       font-family: "Guardian Agate Sans 1 Web";
     }
     h3 {
@@ -411,7 +412,7 @@
 		height:30px;
 		float: left;
 		margin: 12px 12px 0 0;
-		background-color:#ddd;
+		background-color:#767676;
 
     &:hover {
       outline: 2px solid #fff;
@@ -429,8 +430,8 @@
     &.Critical, &.CRITICAL, &.critical {
       background-color: #b51800;
     }
-    &.other {
-      background-color: #ddd;
+    &.other, &.Unclassified {
+      background-color: #767676;
     }
   }
 
@@ -475,9 +476,24 @@
 	.standfirst {
 		font-size:1rem;
 		font-weight:400;
-		line-height:1.1rem;
+		line-height:1.25rem;
 		margin-bottom:10px;
 	}
+
+  .about {
+    margin-bottom: 1em;
+    a { 
+      cursor: pointer;
+      color: #fff;
+      padding: 8px;
+      background-color: #333;
+      display: inline-block;
+      &:hover {
+        text-decoration: none;
+        background-color: #767676;
+      };
+    }
+  }
 
 	.headerBig {
 		font-size:4rem;
@@ -522,6 +538,13 @@
       overflow: visible;
       -webkit-font-smoothing: antialiased;
       margin: 0;
+  }
+  .no-data {
+    clear: both;
+    font-style: italic;
+    font-size: 1.25em;
+    padding-top: 1em;
+    text-align: center;
   }
 }
 
