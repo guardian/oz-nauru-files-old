@@ -37,7 +37,7 @@
   cursor: pointer;
 }
 
-.share-twitter, #report-modal{
+.action-button{
   padding: 5px 15px;
   margin-top: 10px;
   cursor: pointer;
@@ -51,6 +51,10 @@
   text-decoration: none;
   color: #fff;
   outline: 0;
+
+  & + .action-button {
+    margin-left: 5px;
+  }
 
   &:hover {
     color: #fff;

@@ -11,8 +11,10 @@
         </div>
         <div class="modal-content">
         <p>{{description}} </p>
-        <a href="{{tweetURL}}" class="share-twitter">Tweet</a>
-        <a id="report-modal" on-tap='showReport'>Report</a>
+        <a id="report-modal" class="action-button" on-tap='showReport'>Flag this incident</a>
+        <a id="report-link" class="action-button" href="">See original report</a>        
+        <a href="{{tweetURL}}" class="action-button share-twitter">Tweet</a>
+        <a href="{{tweetURL}}" class="action-button share-link">Link to this</a>
         <div id="submit-msg">Your note has been submitted.</div>
         </div>
       {{/details}}
