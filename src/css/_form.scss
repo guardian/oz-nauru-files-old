@@ -1,0 +1,36 @@
+#nauru-report-form {
+  .input-container {
+    margin: 20px 0;
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 0.5em;
+    }
+
+    textarea {
+      min-height: 200px;
+      resize: none;
+    }
+    textarea, input[type="text"] {
+      border: 0;
+      outline: #ddd solid 1px;
+      box-sizing: border-box;
+      padding: 10px 16px;
+      background-color: #fff;
+      font-size: 16px;
+      line-height: 24px;
+      font-family: "Guardian Agate Sans 1 Web";
+      width: 100%;
+    }
+  }
+
+  input[type="submit"] {
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #333;
+    color: #fff;
+    border: 0;
+    cursor: pointer;
+  }
+}

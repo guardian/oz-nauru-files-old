@@ -6,11 +6,20 @@
           <a class="close" on-tap='close'></a>
         </div>
         <div class="modal-content">
+            <div class="secure-contact">
+              Click <a href="">here</a> to contact us securely or use the form below to get in touch.
+            </div>
             <form action="https://docs.google.com/a/guardian.co.uk/forms/d/e/1FAIpQLSd7XrWUpd4NUvIkKBBluQRC5rMdC7eUvSqCqJK-dslQlqvozA/formResponse" method="POST" id="nauru-report-form" target="hidden_iframe" onsubmit="">
-            <label for="nauru-form-note">Comments</label>
-            <textarea type="text" name="entry.396313401" id="nauru-form-note" dir="auto" aria-label="Notes"></textarea>
+            <div class="input-container">
+              <label for="nauru-form-note">Details</label>
+              <textarea type="text" name="entry.396313401" id="nauru-form-note" dir="auto" aria-label="Notes"></textarea>
+            </div>
+            <div class="input-container">
+              <label for="nauru-form-contact">Your contact details (optional)</label>
+              <input type="text" name="entry.45828970" id="nauru-form-contact" dir="auto" aria-label="Contact">
+            </div>
             {{#incident}}
-            <input type="hidden" name="entry.2086906651" value="{{id}}">
+              <input type="hidden" name="entry.2086906651" value="{{id}}">
             {{/incident}}
             <input type="submit" name="submitButton" value="Submit" id="nauru-report-submit">
             </form>
