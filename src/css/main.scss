@@ -252,6 +252,7 @@
 
   .filters {
     line-height: 40px;
+    float: left;
     h2 {
       display: inline-block;
       margin-right: 10px;
@@ -309,6 +310,40 @@
     }
   }
 
+  .key {
+    float: right;
+    line-height: 40px;
+    ul { margin: 0; display: inline; padding: 0;}
+    li { 
+      display: inline-block;
+      text-decoration: none;
+      margin: 0 8px;
+      vertical-align: middle;
+      font-family: "Guardian Agate Sans 1 Web";
+    }
+    h3 {
+      text-transform: capitalize;
+      vertical-align: middle;
+      font-size: 1em;
+      display: inline-block;
+      font-family: "Guardian Agate Sans 1 Web";
+    }
+    .colour {
+      vertical-align: middle;        
+      width: 16px;
+      height: 16px;
+      line-height: 40px;
+      display: inline-block;
+      margin-right: 4px;
+      margin-top: -4px;
+    }
+    @include mq($until: wide) {
+      width: 100%;
+      float: none;
+      clear: both;
+    }
+  }
+
   .gridItems {
     width: 60%;
     float: left;
@@ -318,12 +353,19 @@
     @include mq($until: tablet) {
       width: 100%;
       float: none;
+      clear: both;
+      &:after {
+        content: "";
+        display: table;
+        clear: both;
+      }
     }
   }
 
   .quote-box {
     width: 39%;
     margin-left: 1%;
+    margin-top: 10px;
     float: left;
     background-color: #333;
     padding: 16px 20px;
@@ -369,21 +411,29 @@
 		height:30px;
 		float: left;
 		margin: 12px 12px 0 0;
-		background-color:grey;
+		background-color:#ddd;
 
     &:hover {
       outline: 2px solid #fff;
     }
-    &.Minor, &.MINOR {
+	}
+
+  .gridItem, .key .colour{
+
+    &.Minor, &.MINOR, &.minor {
       background-color: #ffce4b;
     }
-    &.Major, &.MAJOR {
+    &.Major, &.MAJOR, &.major {
       background-color: #e6711b;
     }
-    &.Critical, &.CRITICAL {
+    &.Critical, &.CRITICAL, &.critical {
       background-color: #b51800;
     }
-	}
+    &.other {
+      background-color: #ddd;
+    }
+  }
+
 
 	.header {
     padding: 20px;
