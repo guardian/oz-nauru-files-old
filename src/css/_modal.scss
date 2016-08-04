@@ -137,6 +137,22 @@
   li {
     margin: 0.75em 0;
   }
+  dt {
+    display: inline-block;
+    font-weight: bold;
+  }
+
+  dd {
+    display: inline;
+    margin-left: 10px;
+    line-height: 1.25em;
+
+    &:after {
+      display: block;
+      content: '';
+      margin-bottom: 0.5em;
+    };
+  }
 }
 
 .close {
