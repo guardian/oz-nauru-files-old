@@ -68,12 +68,10 @@ export function init(el, context, config, mediator) {
 
     var topMonth = d3.max(topCategoriesByYear, (d) => d3.max(d.values, (y) => y.values) )
 
-    console.log(quotes)
     var quoteData = quotes
     quoteData.forEach((d) => {
         d.id = cleanID(d.ref)
         var e = dataMapped.get(d.id)
-        console.log(e.id, d.id)
         if (e) e.hasQuote = true
     })
 
@@ -363,11 +361,22 @@ export function init(el, context, config, mediator) {
             events: { tap: ractiveTap },
             data: {
                 details: data,
-                tweetURL: tweetURL
+                link: `${linkURL}${urlString}`,
+                tweetURL: tweetURL,
+                showLink: false
                 },
             template: incidentModal
         });
         modal.on('showReport', function(d) { showReport(d.context)})
+        modal.on('showLink', function() { 
+            modal.toggle("showLink")
+
+            if (modal.get('showLink')) {
+                var link = document.getElementById("incident-link-field")
+                link.focus()
+                link.select()
+            }
+        })
 
         updateURL(data.id)
     }

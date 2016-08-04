@@ -63,6 +63,23 @@
   };
 }
 
+.incident-link {
+  margin-top: 1em;
+  input{
+    border: 0;
+    outline: #bdbdbd solid 1px;
+    color: #333;
+    background: transparent;
+    font-family: 'Guardian Agate Sans 1 Web';
+    padding: 5px 15px;
+    font-size: 16px;
+    line-height: 24px;
+    box-sizing: border-box;
+    width: 100%;
+  } 
+}
+
+
 .modal-header {
   background-color: #333;
   color: #fff;

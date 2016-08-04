@@ -14,7 +14,10 @@
         <a id="report-modal" class="action-button" on-tap='showReport'>Flag this incident</a>
         <a id="report-link" class="action-button" href="">See original report</a>        
         <a href="{{tweetURL}}" class="action-button share-twitter">Tweet</a>
-        <a href="{{tweetURL}}" class="action-button share-link">Link to this</a>
+        <a on-tap='showLink' class="action-button share-link">Link to this</a>
+        {{#showLink}}
+        <div class="incident-link"><input id="incident-link-field" readonly="" value="{{link}}"></div>
+        {{/showLink}}
         <div id="submit-msg">Your note has been submitted.</div>
         </div>
       {{/details}}
