@@ -1,15 +1,18 @@
 <div class="header">
-    <div class="nauruHeader">
-        <span class="headerSmall">the</span>
-        <div class="headerBig">Nauru files</div>
-        <div class="subHeading">The lives of asylum seekers in detention detailed in a unique database</div>
-        <div class="standfirst">Each of these squares is an incident report written by staff in Australia’s detention centre on Nauru between 2013 and 2015. The reports are categorised by severity and type. Click on a square to see expanded details. <b>Warning: these files contain details that may distress some readers</b></div>
-        <div class="about"><a id="about-modal" on-tap='showAbout'>About the data</a></div>
-        <div class="byline"><a href="">Nick Evershed</a>, <a href="">Ri Liu</a>, <a href="">Paul Farrell</a>, and <a href="">Helen Davidson</a></div>
-        <div class="btns-share"><button class="btn-tt" data-source="twitter"></button> <button class="btn-fb" data-source="facebook"></button></div>
+    <div class="logo-container">
+        <img src="assets/imgs/logo.png" alt="The Nauru Files">
     </div>
+    <div class="header-image">
+<!--         <svg id="fenceBg" width="100%" height="450" viewBox="0 0 1000 250" preserveAspectRatio="none">
+            <defs>
+              <pattern id="fencePattern" patternUnits="userSpaceOnUse" viewBox="0 0 548 450" width="548" height="450">
+                <image xlink:href="assets/imgs/fence-bg.jpg" x="0" y="0" width="548" height="450" />
+              </pattern>
+            </defs>
+            <polygon class="st0" points="0,90 750,0 1000,0 1000,250 0,140" fill="url(#fencePattern)"/>
 
-</div>    
+        </svg> -->
+
 
 <div class="years-and-stats">
     <div class="years">
@@ -31,74 +34,113 @@
             {{#topCategories[0]:i}}
                 <div class="category">{{i+1}}. {{key}} <span class="count">{{values}}</span></div>
             {{/topCategories[0]}}
-        </div>
-        <div class="categories-col">
-            {{#topCategories[1]:i}}
-                <div class="category">{{i+5}}. {{key}} <span class="count">{{values}}</span></div>
-            {{/topCategories[1]}}
-        </div>                
     </div>
-</div>
-<div class="interactive-content">
-    <div class='filters'>
-        <h2>Filter by</h2>
-        <div class="rating-filter filter">
-            <div class="filter-label">Risk rating: <span class="selection-name">{{incidentRating}}</span></div>
-            <select value='{{incidentRating}}'>
-                <option value="All">All</option>
-                <option value="Minor">Minor</option>
-                <option value="Major">Major</option>
-                <option value="Critical">Critical</option>
-                <option value="Unclassified">Unclassified</option>
-                <option value="Information">Information</option>
-            </select>
+    <div class="header-text-bg"></div>
+    <div class="figure-image"></div>
+    <div class="header-text-container">
+        <div class="header-text">
+            <h1>The Nauru files</h1>
+            <div class="subHeading">The lives of asylum seekers in detention detailed in a unique database</div>
+            <div class="standfirst">Each of these squares is an incident report written by staff in Australia’s detention centre on Nauru between 2013 and 2015. The reports are categorised by severity and type. Click on a square to see expanded details. <b>Warning: these files contain details that may distress some readers</b></div>
+            <div class="byline"><a href="">Nick Evershed</a>, <a href="">Ri Liu</a>, <a href="">Paul Farrell</a>, and <a href="">Helen Davidson</a></div>
+            <div class="more-actions">
+                <div class="about"><a id="about-modal" on-tap='showAbout'>About the data</a></div>
+                <div class="btns-share"><button class="btn-tt" data-source="twitter"></button> <button class="btn-fb" data-source="facebook"></button></div>
+            </div>
         </div>
-        <div class="category-filter filter">
-            <div class="filter-label">Incident type: <span class="selection-name">{{category}}</span></div>
-            <select value='{{category}}'>
-                <option value='All'>All</option>
-                {{#categories}}
-                    <option value='{{.}}'>{{.}}</option>
-                {{/categories}}
-            </select>
-        </div>
-          <div class="downgraded-filter filter">
-            <div class="filter-label">Downgraded? <span class="selection-name">{{downgraded}}</span></div>
-            <select value='{{downgraded}}'>
-                <option value='All'>All</option>
-                <option value='Yes'>Yes</option>
-                <option value='No'>No</option>
-                <option value='Unknown'>Unknown</option>
-            </select>
-        </div>
+    </div>
+</div>    
 
+<div class="interactive-container-content">
+    <div class="years-and-stats">
+        <div class="years">
+            {{#years:i}}
+                {{#selected}}
+                    <a on-click='changeYear' class="selected" data-year={{year}}>{{year}}</a>
+                {{/selected}}
+                {{^selected}}
+                    <a on-click='changeYear' data-year={{year}}>{{year}}</a>
+                {{/selected}}
+            {{/years}}
+        </div>
+        <div class="month-bars">
+            <h2>Number of Incidents</h2>
+        </div>
+        <div class="top-categories">
+            <h2>Most Occurrences</h2>
+            <div class="categories-col">
+                {{#topCategories[0]:i}}
+                    <div class="category">{{i+1}}. {{key}} <span class="count">{{values}}</span></div>
+                {{/topCategories[0]}}
+            </div>
+            <div class="categories-col">
+                {{#topCategories[1]:i}}
+                    <div class="category">{{i+5}}. {{key}} <span class="count">{{values}}</span></div>
+                {{/topCategories[1]}}
+            </div>                
+        </div>
     </div>
-    <div class="key">
-        <h3>Risk level key</h3>
-        <ul>
-            <li><div class="colour minor"></div> Minor</li>
-            <li><div class="colour major"></div> Major</li>
-            <li><div class="colour critical"></div> Critical</li>
-            <li><div class="colour other"></div> Information/Unclassified</li>            
-        </ul>
-    </div>
-    {{#dataEmpty}}
-        <div class="no-data">No entries found</div>
-    {{/dataEmpty}}
-    {{^dataEmpty}}
-        {{#each nauruData}}
-            {{#each values}}
-                <h3>{{key}}</h3>
-                <div class="gridItems" id="{{key}}">
-                    {{#each values}}{{#hasQuote}}<div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}' data-aos="show-border" data-aos-offset="200" data-aos-delay="200" data-aos-duration="800"></div>{{/hasQuote}}{{^hasQuote}}<div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}'></div>{{/hasQuote}}{{/each}}
-                </div>
-                {{#quote}}
-                    <div id="quote-{{id}}" class="quote-box" data-aos="fade" data-aos-offset="200" data-aos-delay="200" data-aos-duration="800">
-                        <div class="quote-date">{{date}}</div>
-                        <div class="quote-text">{{{quote}}}</div>
+    <div class="interactive-content">
+        <div class='filters'>
+            <h2>Filter by</h2>
+            <div class="rating-filter filter">
+                <div class="filter-label">Risk rating: <span class="selection-name">{{incidentRating}}</span></div>
+                <select value='{{incidentRating}}'>
+                    <option value="All">All</option>
+                    <option value="Minor">Minor</option>
+                    <option value="Major">Major</option>
+                    <option value="Critical">Critical</option>
+                    <option value="Unclassified">Unclassified</option>
+                    <option value="Information">Information</option>
+                </select>
+            </div>
+            <div class="category-filter filter">
+                <div class="filter-label">Incident type: <span class="selection-name">{{category}}</span></div>
+                <select value='{{category}}'>
+                    <option value='All'>All</option>
+                    {{#categories}}
+                        <option value='{{.}}'>{{.}}</option>
+                    {{/categories}}
+                </select>
+            </div>
+              <div class="downgraded-filter filter">
+                <div class="filter-label">Downgraded? <span class="selection-name">{{downgraded}}</span></div>
+                <select value='{{downgraded}}'>
+                    <option value='All'>All</option>
+                    <option value='Yes'>Yes</option>
+                    <option value='No'>No</option>
+                    <option value='Unknown'>Unknown</option>
+                </select>
+            </div>
+
+        </div>
+        <div class="key">
+            <h3>Risk level key</h3>
+            <ul>
+                <li><div class="colour minor"></div> Minor</li>
+                <li><div class="colour major"></div> Major</li>
+                <li><div class="colour critical"></div> Critical</li>
+                <li><div class="colour other"></div> Information/Unclassified</li>            
+            </ul>
+        </div>
+        {{#dataEmpty}}
+            <div class="no-data">No entries found</div>
+        {{/dataEmpty}}
+        {{^dataEmpty}}
+            {{#each nauruData}}
+                {{#each values}}
+                    <h3>{{key}}</h3>
+                    <div class="gridItems" id="{{key}}">
+                        {{#each values}}{{#hasQuote}}<div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}' data-aos="show-border" data-aos-offset="100" data-aos-delay="200" data-aos-duration="800"></div>{{/hasQuote}}{{^hasQuote}}<div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}'></div>{{/hasQuote}}{{/each}}
                     </div>
-                {{/}}
-            {{/each}}        
-        {{/each}}
-    {{/dataEmpty}}
+                    {{#quote}}
+                        <div id="quote-{{id}}" class="quote-box" data-aos="fade" data-aos-offset="100" data-aos-delay="200" data-aos-duration="800">
+                            <div class="quote-date">{{date}}</div>
+                            <div class="quote-text">{{{quote}}}</div>
+                        </div>
+                    {{/}}
+                {{/each}}        
+            {{/each}}
+        {{/dataEmpty}}
+    </div>
 </div>

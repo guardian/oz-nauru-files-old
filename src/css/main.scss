@@ -53,8 +53,6 @@
 
   .years-and-stats {
     width: 100%;
-    margin-top: 20px;
-    border-top: 1px solid #333;
     border-bottom: 1px solid #333;
 
     @include mq($from: desktop) {
@@ -430,56 +428,143 @@
     &.Critical, &.CRITICAL, &.critical {
       background-color: #b51800;
     }
-    &.other, &.Unclassified {
+    &.other, &.Unclassified {       
       background-color: #767676;
     }
   }
 
 
 	.header {
-    padding: 20px;
-		background-image: url('assets/imgs/nauru-etch-outline.png');
-	    background-repeat: no-repeat;
-	    background-position: right bottom;
-	    background-size:60%;
-	    height:500px;
-	}
+/*    padding: 20px;*/
+/*		background-image: url('assets/imgs/nauru-etch-outline.png');
+    background-repeat: no-repeat;
+    background-position: right bottom;
+    background-size:60%;*/
+    background-color: #646464;
+    height: 600px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
 
-	.nauruHeader {
-		float: left;
-		margin-top: 2em;
-		margin-left:2em;
-		font-weight:600;
-		width: 40%;
+    .logo-container {
+      height: 550px;
+      position: relative;
+      margin: 0 auto;
+      z-index: 10;
+      img {
+        margin: 20px;
+      }
+    }
 
-    @include mq($until: tablet) {
+    @each $bp in (tablet, desktop, leftCol, wide) {
+        @include mq($bp) {
+          .logo-container {
+            width: map-get($mq-breakpoints, $bp);
+            background-color: #fff;
+          }
+        }
+    }
+
+    .header-image {
       width: 100%;
-      margin-left: 0;
-      box-sizing: border-box;
-      padding: 0 20px;
-    }    
+      height: 526px;
+      background: url('assets/imgs/fence-bg.jpg') repeat-x;
+      position: absolute;
+      transform: skew(0deg,-6deg);
+      transform-origin: 85% bottom;
+      z-index:50;
+      top: 0;
+
+      @include mq($until: wide) {
+        transform: skew(0deg,-12deg);
+      }
+    }
+
+    .figure-image {
+      background: url('assets/imgs/figure.png') no-repeat 50% 50%;
+      width: 100%;
+      height: 300px;
+      z-index:100;
+      position: absolute;
+      left: -100px;
+      top: 240px;
+    }
+
+    .header-text-bg {
+      width: 120%;
+      height: 400px;
+      position: absolute;
+      z-index: 60;
+      bottom: -200px;
+      overflow: hidden;
+      transform: skew(0deg,8deg) rotate(-1deg);
+      transform-origin: 50% bottom;
+      background-color: #e6711b;
+    }
 	}
 
-	.headerSmall {
+	.header-text-container {
+    width:100%;
+		font-weight:600;
+    z-index: 100;
+    position: absolute;
+    bottom: 20px;
+
+    .header-text {
+      margin: 0 auto;
+      position: relative;
+      @each $bp in (tablet, desktop, leftCol, wide) {
+        @include mq($bp) {
+                max-width: map-get($mq-breakpoints, $bp);
+            }
+        }
+
+      @include mq($until: tablet) {
+        width: 100%;
+        margin-left: 0;
+        box-sizing: border-box;
+        padding: 0 20px;
+      }  
+    }
+
+  
+	}
+
+  h1 {
+    font-weight: 800;
+    font-size: 1.75em;
+    color: #fff;
+    margin-bottom: 0.25em;
+  }
+
+/*	.headerSmall {
 		color:#E31F26;
 		font-size:2rem;
-	}
+	}*/
 
 	.subHeading { 
 		border-bottom:dotted 1px #FFF;
 		padding-bottom:5px;
 		margin-bottom:10px;
 		font-size:1.5rem;
-		font-weight:400;
+    color: #212121;
+		font-weight:200;
+    max-width: 20em;
 	}
 
 	.standfirst {
-		font-size:1rem;
+		font-size:1em;
 		font-weight:400;
 		line-height:1.25rem;
 		margin-bottom:10px;
+    color: #212121; 
+    max-width: 30em;
 	}
-
+  .more-actions {
+    right: 0;
+    position: absolute;
+    bottom: 0;
+  }
   .about {
     margin-bottom: 1em;
     a { 
@@ -500,10 +585,11 @@
 	}
 
 	.byline a {
-		color:#B41700;
+		color:#fff;
 	}
 
 	.byline {
+    color: #212121;
 		margin-bottom: 10px;
 	}
 
