@@ -14,6 +14,7 @@
   position: relative;
   padding: 0;
   padding-bottom: 100px;
+  color: #fff;
 
   &:after {
     content: "";
@@ -53,7 +54,9 @@
 
   .years-and-stats {
     width: 100%;
-    border-bottom: 1px solid #333;
+    border: 1px solid #333;
+    border-left: none;
+    margin-top: 30px;
 
     @include mq($from: desktop) {
       height: 120px;
@@ -481,13 +484,19 @@
     }
 
     .figure-image {
-      background: url('assets/imgs/figure.png') no-repeat 50% 50%;
+      background: url('assets/imgs/figure.png') no-repeat 75% 50%;
       width: 100%;
       height: 300px;
       z-index:100;
       position: absolute;
-      left: -100px;
       top: 240px;
+
+      @include mq($until: wide) {
+        background-position-x: 90%;
+      }
+      @include mq($until: desktop) {
+        display: none;
+      } 
     }
 
     .header-text-bg {
@@ -495,12 +504,30 @@
       height: 400px;
       position: absolute;
       z-index: 60;
-      bottom: -200px;
+      bottom: -160px;
       overflow: hidden;
       transform: skew(0deg,8deg) rotate(-1deg);
       transform-origin: 50% bottom;
       background-color: #e6711b;
     }
+
+    @include mq($until: leftCol) {
+      .header-text-bg { bottom: -120px; }
+    } 
+    @include mq($until: tablet) {
+      background-color: #fff;
+
+      .header-text-bg { 
+        bottom: -40px; 
+        height: 480px;
+      }
+      .header-image { 
+        top: 60px;        
+      }
+      .logo-container {
+        z-index: 100;
+      }
+    } 
 	}
 
 	.header-text-container {
@@ -510,21 +537,33 @@
     position: absolute;
     bottom: 20px;
 
-    .header-text {
-      margin: 0 auto;
-      position: relative;
-      @each $bp in (tablet, desktop, leftCol, wide) {
-        @include mq($bp) {
-                max-width: map-get($mq-breakpoints, $bp);
-            }
+    @each $bp in (tablet, desktop, leftCol, wide) {
+      @include mq($bp) {
+          .header-text { max-width: map-get($mq-breakpoints, $bp); }
         }
+    }
 
-      @include mq($until: tablet) {
+    @include mq($until: 90em) {
+      .header-text { padding-left: 20px; }
+    }
+
+    @include mq($until: leftCol) {
+      .standfirst { max-width: 40em; }
+    } 
+
+    @include mq($until: tablet) {
+      .header-text { 
         width: 100%;
         margin-left: 0;
         box-sizing: border-box;
         padding: 0 20px;
-      }  
+      }
+    } 
+
+    .header-text {
+      margin: 0 auto;
+      position: relative;
+      box-sizing: border-box; 
     }
 
   
@@ -543,12 +582,10 @@
 	}*/
 
 	.subHeading { 
-		border-bottom:dotted 1px #FFF;
-		padding-bottom:5px;
-		margin-bottom:10px;
-		font-size:1.5rem;
-    color: #212121;
-		font-weight:200;
+		font-size:2em;
+    margin-bottom: 5px;
+    color: #fff;
+		font-weight:800;
     max-width: 20em;
 	}
 
@@ -558,7 +595,7 @@
 		line-height:1.25rem;
 		margin-bottom:10px;
     color: #212121; 
-    max-width: 30em;
+    max-width: 50em;
 	}
   .more-actions {
     right: 0;
@@ -567,10 +604,13 @@
   }
   .about {
     margin-bottom: 1em;
+    display: inline-block;
+    line-height: 30px;
     a { 
       cursor: pointer;
       color: #fff;
       padding: 8px;
+      line-height: 20px;
       background-color: #333;
       display: inline-block;
       &:hover {
@@ -593,7 +633,11 @@
 		margin-bottom: 10px;
 	}
 
-	color:#FFF;
+	.btns-share {
+    margin-left: 10px;
+    line-height: 30px;
+    display: inline-block;
+  }
 
 	.btns-share .btn-tt {
     background: #bdbdbd url('assets/imgs/twitterIcon.svg') no-repeat center center;
