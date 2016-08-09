@@ -13,7 +13,7 @@ import ractiveTap from 'ractive-events-tap'
 import d3 from 'd3'
 import Modal from './modal'
 import Tooltip from './tooltip'
-import nauruData from './data/nauru2.json!json'
+import nauruData from './data/nauru.json!json'
 import quotes from './data/quotes.json!json'
 import aos from 'aos'
 
