@@ -1,6 +1,6 @@
 <div class="header">
     <div class="logo-container">
-        <img src="assets/imgs/logo.png" alt="The Nauru Files">
+        <img src="@@assetPath@@/assets/imgs/logo.png" alt="The Nauru Files">
     </div>
     <div class="header-image">
     </div>
@@ -98,10 +98,10 @@
                 {{#each values}}
                     <h3>{{key}}</h3>
                     <div class="gridItems" id="{{key}}">
-                        {{#each values}}{{#hasQuote}}<div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}' data-aos="show-border" data-aos-offset="100" data-aos-delay="200" data-aos-duration="800"></div>{{/hasQuote}}{{^hasQuote}}<div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}'></div>{{/hasQuote}}{{/each}}
+                        {{#each values}}{{#hasQuote}}<div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}' data-aos="show-border" data-aos-offset="0" data-aos-delay="200" data-aos-duration="800"></div>{{/hasQuote}}{{^hasQuote}}<div class='gridItem {{riskRating}}' on-tap='showDetail' decorator='tooltip:{{dateDisplay}},{{riskRating}},{{type}},{{description}}'></div>{{/hasQuote}}{{/each}}
                     </div>
                     {{#quote}}
-                        <div id="quote-{{id}}" class="quote-box" data-aos="fade" data-aos-offset="100" data-aos-delay="200" data-aos-duration="800">
+                        <div id="quote-{{id}}" class="quote-box" data-aos="fade" data-aos-offset="0" data-aos-delay="200" data-aos-duration="800">
                             <div class="quote-date">{{date}}</div>
                             <div class="quote-text">{{{quote}}}</div>
                         </div>

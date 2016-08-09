@@ -50,6 +50,10 @@
     padding: 20px;
     min-height: 200px;
     position: relative;
+
+    & > h3 {
+      font-weight: bold;
+    }
   }
 
   .years-and-stats {
@@ -131,7 +135,8 @@
         padding: 0;
         margin: 10px 10px 5px;
         font-size: 1em;
-        font-family: "Guardian Agate Sans 1 Web";
+        font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+
         font-weight: normal;
         color: #bdbdbd;
       }
@@ -143,14 +148,15 @@
         .fill {
           background-color: #767676;
           position: absolute;
-          bottom: 20px;
+          bottom: 23px;
           width: 100%;
         }
       }
       .value {
         position: absolute;
         font-size: 12px;
-        font-family: "Guardian Agate Sans 1 Web";
+        font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+
         text-align: center;
         display: none;
         width: 100%;
@@ -161,7 +167,8 @@
         font-size: 0.75em;
         text-transform: uppercase;
         color: #bdbdbd;
-        font-family: "Guardian Agate Sans 1 Web";    
+        font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+    
         @media (max-width: 1200px) {
           display: none;
           &:first-of-type {
@@ -197,7 +204,8 @@
         padding: 0;
         margin: 10px 10px 5px;
         font-size: 1em;
-        font-family: "Guardian Agate Sans 1 Web";
+        font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+
         font-weight: normal;
         color: #bdbdbd;
         height: 16px;
@@ -217,7 +225,8 @@
         padding-left: 5px;
         padding-right: 5px;
         box-sizing: border-box;
-        font-family: "Guardian Agate Sans 1 Web";
+        font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+
         font-size: 13px;
         @media (max-width: 1200px) {
           font-size: 11px;
@@ -225,7 +234,8 @@
 
         .count {
           font-weight: bold;
-          font-family: "Guardian Agate Sans 1 Web";
+          font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+
           color: #767676;
           float: right;
         }
@@ -259,7 +269,8 @@
       display: inline-block;
       margin-right: 10px;
       font-size: 1.25em;
-      font-family: "Guardian Agate Sans 1 Web";
+      font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+
       color: #767676;
 
     }
@@ -268,7 +279,8 @@
       display: inline-block;
       background-color: #333;
       z-index: 10;
-      font-family: "Guardian Agate Sans 1 Web";
+      font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+
       position: relative;
       margin: 10px 10px 10px 0;
       padding: 0 10px;
@@ -291,7 +303,7 @@
           width: 24px;
           height: 40px;
           content: "";
-          background: url('assets/imgs/arrow-down.svg') no-repeat center;
+          background: url('@@assetPath@@/assets/imgs/arrow-down.svg') no-repeat center;
         };
       }
       select {
@@ -322,13 +334,16 @@
       margin: 0 6px;
       vertical-align: middle;
       font-size: 14px;
-      font-family: "Guardian Agate Sans 1 Web";
+      font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+
     }
     h3 {
       vertical-align: middle;
       font-size: 1em;
       display: inline-block;
-      font-family: "Guardian Agate Sans 1 Web";
+      margin: 0;
+      font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;
+
     }
     .colour {
       vertical-align: middle;        
@@ -439,7 +454,7 @@
 
 	.header {
 /*    padding: 20px;*/
-/*		background-image: url('assets/imgs/nauru-etch-outline.png');
+/*		background-image: url('@@assetPath@@/assets/imgs/nauru-etch-outline.png');
     background-repeat: no-repeat;
     background-position: right bottom;
     background-size:60%;*/
@@ -455,7 +470,7 @@
       margin: 0 auto;
       z-index: 10;
       img {
-        margin: 20px;
+        padding: 20px;
       }
     }
 
@@ -471,7 +486,7 @@
     .header-image {
       width: 100%;
       height: 526px;
-      background: url('assets/imgs/fence-bg.jpg') repeat-x;
+      background: url('@@assetPath@@/assets/imgs/fence-bg.jpg') repeat-x;
       position: absolute;
       transform: skew(0deg,-6deg);
       transform-origin: 85% bottom;
@@ -484,7 +499,7 @@
     }
 
     .figure-image {
-      background: url('assets/imgs/figure.png') no-repeat 75% 50%;
+      background: url('@@assetPath@@/assets/imgs/figure.png') no-repeat 75% 50%;
       width: 100%;
       height: 300px;
       z-index:100;
@@ -587,6 +602,7 @@
     color: #fff;
 		font-weight:800;
     max-width: 20em;
+    line-height: 1em;
 	}
 
 	.standfirst {
@@ -631,6 +647,9 @@
 	.byline {
     color: #212121;
 		margin-bottom: 10px;
+    padding: 0;
+    border: none;
+    min-height: initial;
 	}
 
 	.btns-share {
@@ -640,14 +659,14 @@
   }
 
 	.btns-share .btn-tt {
-    background: #bdbdbd url('assets/imgs/twitterIcon.svg') no-repeat center center;
+    background: #bdbdbd url('@@assetPath@@/assets/imgs/twitterIcon.svg') no-repeat center center;
   }
   .btns-share .btn-tt:hover {
     background-color: #03b3ee;
   }
 
   .btns-share .btn-fb {
-      background: #bdbdbd url('assets/imgs/facebookIcon.svg') no-repeat center center;
+      background: #bdbdbd url('@@assetPath@@/assets/imgs/facebookIcon.svg') no-repeat center center;
   }
 
   .btns-share .btn-fb:hover {
