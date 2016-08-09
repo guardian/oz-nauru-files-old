@@ -59,7 +59,6 @@
   .years-and-stats {
     width: 100%;
     border: 1px solid #333;
-    border-left: none;
     margin-top: 30px;
 
     @include mq($from: desktop) {
