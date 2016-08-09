@@ -13,8 +13,8 @@ import ractiveTap from 'ractive-events-tap'
 import d3 from 'd3'
 import Modal from './modal'
 import Tooltip from './tooltip'
-import nauruData from './data/nauru2.json!json'
-import quotes from './data/quotes-updated.json!json'
+import nauruData from './data/nauru.json!json'
+import quotes from './data/quotes.json!json'
 import aos from 'aos'
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
@@ -110,6 +110,8 @@ export function init(el, context, config, mediator) {
 
     ractive.on('showDetail', (d) => showModal(d.context))
     ractive.on('showAbout', (d) => showAbout())
+    ractive.on('twitterShare', (d) => openShareWindow('twitter'))
+    ractive.on('fbShare', (d) => openShareWindow('facebook'))
 
     //Load modal from url param
     var hash = getHash()
@@ -352,23 +354,35 @@ export function init(el, context, config, mediator) {
         });
     }
 
+    function getUrl() {
+        var url = "http://www.theguardian.com";
+        if ( window.self !== window.top ) {
+          iframeMessenger.getLocation(function(location) {
+          url = location.href;
+        });
+        }
+        else {
+          url = window.location.href;
+        }
+        return url;
+    }
+
     function showModal(data) {
-        var linkURL = window.location.origin + window.location.pathname
-        var urlString = `#incident=${data.id}`
-        var tweetURL = `https://twitter.com/intent/tweet?text=Three+years+worth+of+incidents+from+the+Nauru+detention+centre+&url=${linkURL}${urlString}`;
+        updateURL(data.id)
+        
         var modal = new Modal({
             transitions: { fade: ractiveFade },
             events: { tap: ractiveTap },
             data: {
                 details: data,
-                link: `${linkURL}${urlString}`,
-                tweetURL: tweetURL,
+                link: getUrl(),
                 showLink: false
                 },
             template: incidentModal
         });
         modal.on('showReport', function(d) { showReport(d.context)})
-        modal.on('showLink', function() { 
+        modal.on('showLink', function(e) {
+            e.original.preventDefault()
             modal.toggle("showLink")
 
             if (modal.get('showLink')) {
@@ -377,8 +391,7 @@ export function init(el, context, config, mediator) {
                 link.select()
             }
         })
-
-        updateURL(data.id)
+        modal.on('tweetShare', function(){ openShareWindow('twitter')})
     }
 
     function showAbout() {
@@ -388,5 +401,33 @@ export function init(el, context, config, mediator) {
             template: aboutModal
         });
     }
+
+    function openShareWindow(network){
+        var shareWindow = "";
+        var twitterBaseUrl = "https://twitter.com/intent/tweet?text=";
+        var facebookBaseUrl = "https://www.facebook.com/dialog/feed?display=popup&app_id=741666719251986&link=";
+        // var network = e.currentTarget.getAttribute('data-source'); 
+        var sharemessage = "The lives of asylum seekers in detention detailed in a unique database ";
+        var shareImage = "";
+        var guardianUrl = "http://theguardian.com/au";
+        guardianUrl = getUrl();
+
+        if(network === "twitter"){
+            shareWindow = 
+                twitterBaseUrl + 
+                encodeURIComponent(sharemessage) + 
+                "%20" + 
+                (encodeURIComponent(guardianUrl));
+
+        }else if(network === "facebook"){
+            shareWindow = 
+                facebookBaseUrl + 
+                encodeURIComponent(guardianUrl) + 
+                "&picture=" + 
+                encodeURIComponent(shareImage) + 
+                "&redirect_uri=http://www.theguardian.com";
+        }
+        window.open(shareWindow, network + "share", "width=640,height=320");
+      }
 
 }
