@@ -15,6 +15,7 @@ import Modal from './modal'
 import Tooltip from './tooltip'
 import nauruData from './data/nauru.json!json'
 import quotes from './data/quotes.json!json'
+import missing from './data/missing.txt!text'
 import aos from 'aos'
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
@@ -37,12 +38,15 @@ export function init(el, context, config, mediator) {
     var nauruJson = nauruData;
     var aosOpts = { disable: 'mobile' }
 
+    var missingFiles = missing.split('.pdf').join('').split("\n")
+
     nauruJson.forEach( function(d,i) {
         d.id = cleanID(d.reference)
         d.date = dateFormat.parse(d.date);
         d.dateDisplay = dateDisplay(d.date)
         d.month = getMonth(d.date);
         d.year = getYear(d.date);
+        d.missing = missingFiles.indexOf(d.id) < 0
     });
     var dataMapped = d3.map(nauruJson, (d) => d.id)
 

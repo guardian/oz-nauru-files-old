@@ -29,11 +29,14 @@ const Modal = Ractive.extend({
 
     // clean up after ourselves later
     this.on( 'teardown', function () {
-      if ( window.self !== window.top ) {
+      if (this.modal.id != "report-modal") {
+        if ( window.self !== window.top ) {
           iframeMessenger.navigate('')
-      } else {
-          history.pushState("", document.title, window.location.pathname)
+        } else {
+            history.pushState("", document.title, window.location.pathname)
+        }
       }
+
       window.removeEventListener( 'resize', resizeHandler );
     }, false );
 
