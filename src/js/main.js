@@ -14,7 +14,7 @@ import d3 from 'd3'
 import Modal from './modal'
 import Tooltip from './tooltip'
 import nauruData from './data/nauru2.json!json'
-import quotes from './data/quotes-updated.json!json'
+import quotes from './data/quotes.json!json'
 import aos from 'aos'
 
 var shareFn = share('Interactive title', 'http://gu.com/p/URL', '#Interactive');
