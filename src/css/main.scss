@@ -13,7 +13,6 @@
 .interactive-container {
   position: relative;
   padding: 0;
-  padding-bottom: 100px;
   color: #fff;
 
   &:after {
@@ -48,12 +47,20 @@
 
   .interactive-content {
     padding: 20px;
+    padding-bottom: 60px;
     min-height: 200px;
     position: relative;
 
     & > h3 {
       font-weight: bold;
     }
+    
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+  
   }
 
   .years-and-stats {
@@ -702,6 +709,160 @@
     font-size: 1.25em;
     padding-top: 1em;
     text-align: center;
+  }
+
+  .footer {
+    margin: 0 auto;
+    padding-bottom: 40px;
+
+    h2 {color: #bdbdbd; margin: 1em 10px; }
+    &:after {
+      content: "";
+      display: table;
+      clear: both;
+    }
+
+    @each $bp in (tablet, desktop, leftCol, wide) {
+      @include mq($bp) {
+        width: map-get($mq-breakpoints, $bp);
+      }
+    }
+
+    .footer-grid {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+
+      li {
+        width: 25%;
+        float: left;
+        display: flex;
+        flex: 1 1 auto;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        .footer-item-container {
+          background-color: #f6f6f6;
+          margin: 0 10px;
+          min-height: 80px;
+          box-sizing: border-box;
+          overflow: hidden;
+          position: relative;
+          color: #333;
+          
+          &:hover {
+            background-color: #eaeaea;
+          };
+
+          .footer-text-content {
+            margin: 0 10px;
+            padding-bottom: 10px;
+          }
+
+          img {
+            max-width:100%;
+          }
+
+          h2 {
+            font-size:18px;
+            font-weight: 500;
+            margin: 0.25em 0;
+            line-height: 24px;
+            color: inherit;
+          }
+          a {
+            color: inherit;
+          }
+          .anchor {
+            position: absolute;
+            z-index: 200!important;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+          }
+
+          .button {
+            border: none;
+            height: 30px;
+            line-height: 32px;
+            display: inline-block;
+            color: #fff;
+            z-index: 100;
+            background-color: #bb3a7f;
+            border-radius: 62.5rem;
+            padding: 0 0.625em;
+
+            .arrow-icon {
+              height: auto!important;
+              width: auto!important;
+              float: right;
+              fill: #fff;
+            }
+          }
+
+          .subheading {
+            color: #767676;
+            font-size: 1em;
+            line-height: 1.25em;
+            margin: 0.25em 0;
+            font-family:'Guardian Text Sans Web', 'Agate Sans', sans-serif;            
+          }
+
+          .members-header {
+            width: 100%;
+            background-color: #bb3a7f;
+
+            h2 {
+              color: #fff;
+              margin: 0;
+              padding: 0;
+              padding: 5px 5px 10px;
+            }
+
+            .guardian-logo {
+              padding: 5px;
+            }
+          }
+        }
+      }
+    }
+
+    @include mq($until: desktop) {
+      .footer-grid li {
+        width: 100%;
+        margin-bottom: 1em;
+
+        .footer-item-container {
+          background-color: #484f53 !important;
+          color: #fff;
+          img { 
+            max-width: 100px; 
+            position: absolute;
+            margin: 0.25em;
+          }
+          .footer-text-content {
+            margin-left: 110px;
+            padding-bottom: 0;
+          }
+          .button {
+            margin-bottom: 5px;
+            margin-left: -105px;
+          }
+          .subheading {
+            color: #dcdcdc;
+          }
+        }
+      }
+
+      .footer-grid, li {
+        display: block;
+      }
+    } 
   }
 }
 

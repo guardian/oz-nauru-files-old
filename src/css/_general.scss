@@ -34,6 +34,8 @@ a {
 .interactive-container-content {
     position: relative;
     margin: 0 auto;
+    border-bottom: 1px solid #333;
+
     @each $bp in (tablet, desktop, leftCol, wide) {
         @include mq($bp) {
             max-width: map-get($mq-breakpoints, $bp);
