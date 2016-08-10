@@ -411,6 +411,7 @@ export function init(el, context, config, mediator) {
         var twitterBaseUrl = "https://twitter.com/intent/tweet?text=";
         var facebookBaseUrl = "https://www.facebook.com/dialog/feed?display=popup&app_id=741666719251986&link=";
         // var network = e.currentTarget.getAttribute('data-source'); 
+        var twittermessage = "The lives of asylum seekers in detention detailed in a unique database #naurufiles";
         var sharemessage = "The lives of asylum seekers in detention detailed in a unique database ";
         var shareImage = "";
         var guardianUrl = "http://theguardian.com/au";
@@ -419,7 +420,7 @@ export function init(el, context, config, mediator) {
         if(network === "twitter"){
             shareWindow = 
                 twitterBaseUrl + 
-                encodeURIComponent(sharemessage) + 
+                encodeURIComponent(twittermessage) + 
                 "%20" + 
                 (encodeURIComponent(guardianUrl));
 
