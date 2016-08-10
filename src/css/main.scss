@@ -833,7 +833,7 @@
       }
     }
 
-    @include mq($until: desktop) {
+    @include mq($until: tablet) {
       .footer-grid li {
         width: 100%;
         margin-bottom: 1em;
