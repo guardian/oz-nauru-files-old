@@ -28,7 +28,7 @@ var tooltipDecorator = function ( node, date, risk, category, text) {
 
     click: function () {
       if (tooltip) {
-        tooltip.parentNode.removeChild( tooltip );
+        // tooltip.parentNode.removeChild( tooltip );
       }
     },
 
